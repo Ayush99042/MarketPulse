@@ -1,0 +1,1610 @@
+{
+  "pagination": {
+    "limit": 100,
+    "offset": 0,
+    "count": 100,
+    "total": 3078
+  },
+  "data": [
+    {
+      "name": "RELIANCE INDS",
+      "symbol": "RELIANCE.XNSE",
+      "has_intraday": false,
+      "has_eod": true,
+      "country": null,
+      "stock_exchange": {
+        "name": "NATIONAL STOCK EXCHANGE OF INDIA",
+        "acronym": "NSE",
+        "mic": "XNSE",
+        "country": null,
+        "country_code": "IN",
+        "city": "MUMBAI",
+        "website": "www.nseindia.com"
+      }
+    },
+    {
+      "name": "TATA CONSULTANCY S",
+      "symbol": "TCS.XNSE",
+      "has_intraday": false,
+      "has_eod": true,
+      "country": null,
+      "stock_exchange": {
+        "name": "NATIONAL STOCK EXCHANGE OF INDIA",
+        "acronym": "NSE",
+        "mic": "XNSE",
+        "country": null,
+        "country_code": "IN",
+        "city": "MUMBAI",
+        "website": "www.nseindia.com"
+      }
+    },
+    {
+      "name": "HDFC BANK",
+      "symbol": "HDFCBANK.XNSE",
+      "has_intraday": false,
+      "has_eod": true,
+      "country": null,
+      "stock_exchange": {
+        "name": "NATIONAL STOCK EXCHANGE OF INDIA",
+        "acronym": "NSE",
+        "mic": "XNSE",
+        "country": null,
+        "country_code": "IN",
+        "city": "MUMBAI",
+        "website": "www.nseindia.com"
+      }
+    },
+    {
+      "name": "HINDUSTAN UNILEVER",
+      "symbol": "HINDUNILVR.XNSE",
+      "has_intraday": false,
+      "has_eod": true,
+      "country": null,
+      "stock_exchange": {
+        "name": "NATIONAL STOCK EXCHANGE OF INDIA",
+        "acronym": "NSE",
+        "mic": "XNSE",
+        "country": null,
+        "country_code": "IN",
+        "city": "MUMBAI",
+        "website": "www.nseindia.com"
+      }
+    },
+    {
+      "name": "HOUSING DEVEL FIN",
+      "symbol": "HDFC.XNSE",
+      "has_intraday": false,
+      "has_eod": true,
+      "country": null,
+      "stock_exchange": {
+        "name": "NATIONAL STOCK EXCHANGE OF INDIA",
+        "acronym": "NSE",
+        "mic": "XNSE",
+        "country": null,
+        "country_code": "IN",
+        "city": "MUMBAI",
+        "website": "www.nseindia.com"
+      }
+    },
+    {
+      "name": "ICICI BANK",
+      "symbol": "ICICIBANK.XNSE",
+      "has_intraday": false,
+      "has_eod": true,
+      "country": null,
+      "stock_exchange": {
+        "name": "NATIONAL STOCK EXCHANGE OF INDIA",
+        "acronym": "NSE",
+        "mic": "XNSE",
+        "country": null,
+        "country_code": "IN",
+        "city": "MUMBAI",
+        "website": "www.nseindia.com"
+      }
+    },
+    {
+      "name": "INFOSYS LTD",
+      "symbol": "INFY.XNSE",
+      "has_intraday": false,
+      "has_eod": true,
+      "country": null,
+      "stock_exchange": {
+        "name": "NATIONAL STOCK EXCHANGE OF INDIA",
+        "acronym": "NSE",
+        "mic": "XNSE",
+        "country": null,
+        "country_code": "IN",
+        "city": "MUMBAI",
+        "website": "www.nseindia.com"
+      }
+    },
+    {
+      "name": "KOTAK MAHINDRA BAN",
+      "symbol": "KOTAKBANK.XNSE",
+      "has_intraday": false,
+      "has_eod": true,
+      "country": null,
+      "stock_exchange": {
+        "name": "NATIONAL STOCK EXCHANGE OF INDIA",
+        "acronym": "NSE",
+        "mic": "XNSE",
+        "country": null,
+        "country_code": "IN",
+        "city": "MUMBAI",
+        "website": "www.nseindia.com"
+      }
+    },
+    {
+      "name": "BHARTI AIRTEL LTD",
+      "symbol": "BHARTIARTL.XNSE",
+      "has_intraday": false,
+      "has_eod": true,
+      "country": null,
+      "stock_exchange": {
+        "name": "NATIONAL STOCK EXCHANGE OF INDIA",
+        "acronym": "NSE",
+        "mic": "XNSE",
+        "country": null,
+        "country_code": "IN",
+        "city": "MUMBAI",
+        "website": "www.nseindia.com"
+      }
+    },
+    {
+      "name": "BAJAJ FINANCE LTD",
+      "symbol": "BAJFINANCE.XNSE",
+      "has_intraday": false,
+      "has_eod": true,
+      "country": null,
+      "stock_exchange": {
+        "name": "NATIONAL STOCK EXCHANGE OF INDIA",
+        "acronym": "NSE",
+        "mic": "XNSE",
+        "country": null,
+        "country_code": "IN",
+        "city": "MUMBAI",
+        "website": "www.nseindia.com"
+      }
+    },
+    {
+      "name": "STATE BK OF INDIA",
+      "symbol": "SBIN.XNSE",
+      "has_intraday": false,
+      "has_eod": true,
+      "country": null,
+      "stock_exchange": {
+        "name": "NATIONAL STOCK EXCHANGE OF INDIA",
+        "acronym": "NSE",
+        "mic": "XNSE",
+        "country": null,
+        "country_code": "IN",
+        "city": "MUMBAI",
+        "website": "www.nseindia.com"
+      }
+    },
+    {
+      "name": "ITC",
+      "symbol": "ITC.XNSE",
+      "has_intraday": false,
+      "has_eod": true,
+      "country": null,
+      "stock_exchange": {
+        "name": "NATIONAL STOCK EXCHANGE OF INDIA",
+        "acronym": "NSE",
+        "mic": "XNSE",
+        "country": null,
+        "country_code": "IN",
+        "city": "MUMBAI",
+        "website": "www.nseindia.com"
+      }
+    },
+    {
+      "name": "AXIS BANK",
+      "symbol": "AXISBANK.XNSE",
+      "has_intraday": false,
+      "has_eod": true,
+      "country": null,
+      "stock_exchange": {
+        "name": "NATIONAL STOCK EXCHANGE OF INDIA",
+        "acronym": "NSE",
+        "mic": "XNSE",
+        "country": null,
+        "country_code": "IN",
+        "city": "MUMBAI",
+        "website": "www.nseindia.com"
+      }
+    },
+    {
+      "name": "MARUTI SUZUKI IND",
+      "symbol": "MARUTI.XNSE",
+      "has_intraday": false,
+      "has_eod": true,
+      "country": null,
+      "stock_exchange": {
+        "name": "NATIONAL STOCK EXCHANGE OF INDIA",
+        "acronym": "NSE",
+        "mic": "XNSE",
+        "country": null,
+        "country_code": "IN",
+        "city": "MUMBAI",
+        "website": "www.nseindia.com"
+      }
+    },
+    {
+      "name": "ASIAN PAINTS LTD",
+      "symbol": "ASIANPAINT.XNSE",
+      "has_intraday": false,
+      "has_eod": true,
+      "country": null,
+      "stock_exchange": {
+        "name": "NATIONAL STOCK EXCHANGE OF INDIA",
+        "acronym": "NSE",
+        "mic": "XNSE",
+        "country": null,
+        "country_code": "IN",
+        "city": "MUMBAI",
+        "website": "www.nseindia.com"
+      }
+    },
+    {
+      "name": "LARSEN & TOUBRO",
+      "symbol": "LT.XNSE",
+      "has_intraday": false,
+      "has_eod": true,
+      "country": null,
+      "stock_exchange": {
+        "name": "NATIONAL STOCK EXCHANGE OF INDIA",
+        "acronym": "NSE",
+        "mic": "XNSE",
+        "country": null,
+        "country_code": "IN",
+        "city": "MUMBAI",
+        "website": "www.nseindia.com"
+      }
+    },
+    {
+      "name": "NESTLE INDIA",
+      "symbol": "NESTLEIND.XNSE",
+      "has_intraday": false,
+      "has_eod": true,
+      "country": null,
+      "stock_exchange": {
+        "name": "NATIONAL STOCK EXCHANGE OF INDIA",
+        "acronym": "NSE",
+        "mic": "XNSE",
+        "country": null,
+        "country_code": "IN",
+        "city": "MUMBAI",
+        "website": "www.nseindia.com"
+      }
+    },
+    {
+      "name": "HCL TECHNOLOGIES",
+      "symbol": "HCLTECH.XNSE",
+      "has_intraday": false,
+      "has_eod": true,
+      "country": null,
+      "stock_exchange": {
+        "name": "NATIONAL STOCK EXCHANGE OF INDIA",
+        "acronym": "NSE",
+        "mic": "XNSE",
+        "country": null,
+        "country_code": "IN",
+        "city": "MUMBAI",
+        "website": "www.nseindia.com"
+      }
+    },
+    {
+      "name": "AVENUE SUPERMARTS",
+      "symbol": "DMART.XNSE",
+      "has_intraday": false,
+      "has_eod": true,
+      "country": null,
+      "stock_exchange": {
+        "name": "NATIONAL STOCK EXCHANGE OF INDIA",
+        "acronym": "NSE",
+        "mic": "XNSE",
+        "country": null,
+        "country_code": "IN",
+        "city": "MUMBAI",
+        "website": "www.nseindia.com"
+      }
+    },
+    {
+      "name": "BAJAJ FINSERV LTD",
+      "symbol": "BAJAJFINSV.XNSE",
+      "has_intraday": false,
+      "has_eod": true,
+      "country": null,
+      "stock_exchange": {
+        "name": "NATIONAL STOCK EXCHANGE OF INDIA",
+        "acronym": "NSE",
+        "mic": "XNSE",
+        "country": null,
+        "country_code": "IN",
+        "city": "MUMBAI",
+        "website": "www.nseindia.com"
+      }
+    },
+    {
+      "name": "WIPRO",
+      "symbol": "WIPRO.XNSE",
+      "has_intraday": false,
+      "has_eod": true,
+      "country": null,
+      "stock_exchange": {
+        "name": "NATIONAL STOCK EXCHANGE OF INDIA",
+        "acronym": "NSE",
+        "mic": "XNSE",
+        "country": null,
+        "country_code": "IN",
+        "city": "MUMBAI",
+        "website": "www.nseindia.com"
+      }
+    },
+    {
+      "name": "ULTRATECH CEMENT",
+      "symbol": "ULTRACEMCO.XNSE",
+      "has_intraday": false,
+      "has_eod": true,
+      "country": null,
+      "stock_exchange": {
+        "name": "NATIONAL STOCK EXCHANGE OF INDIA",
+        "acronym": "NSE",
+        "mic": "XNSE",
+        "country": null,
+        "country_code": "IN",
+        "city": "MUMBAI",
+        "website": "www.nseindia.com"
+      }
+    },
+    {
+      "name": "OIL & NATURAL GAS",
+      "symbol": "ONGC.XNSE",
+      "has_intraday": false,
+      "has_eod": true,
+      "country": null,
+      "stock_exchange": {
+        "name": "NATIONAL STOCK EXCHANGE OF INDIA",
+        "acronym": "NSE",
+        "mic": "XNSE",
+        "country": null,
+        "country_code": "IN",
+        "city": "MUMBAI",
+        "website": "www.nseindia.com"
+      }
+    },
+    {
+      "name": "HDFC LIFE INSURANC",
+      "symbol": "HDFCLIFE.XNSE",
+      "has_intraday": false,
+      "has_eod": true,
+      "country": null,
+      "stock_exchange": {
+        "name": "NATIONAL STOCK EXCHANGE OF INDIA",
+        "acronym": "NSE",
+        "mic": "XNSE",
+        "country": null,
+        "country_code": "IN",
+        "city": "MUMBAI",
+        "website": "www.nseindia.com"
+      }
+    },
+    {
+      "name": "TITAN COMPANY LTD",
+      "symbol": "TITAN.XNSE",
+      "has_intraday": false,
+      "has_eod": true,
+      "country": null,
+      "stock_exchange": {
+        "name": "NATIONAL STOCK EXCHANGE OF INDIA",
+        "acronym": "NSE",
+        "mic": "XNSE",
+        "country": null,
+        "country_code": "IN",
+        "city": "MUMBAI",
+        "website": "www.nseindia.com"
+      }
+    },
+    {
+      "name": "COAL INDIA LTD",
+      "symbol": "COALINDIA.XNSE",
+      "has_intraday": false,
+      "has_eod": true,
+      "country": null,
+      "stock_exchange": {
+        "name": "NATIONAL STOCK EXCHANGE OF INDIA",
+        "acronym": "NSE",
+        "mic": "XNSE",
+        "country": null,
+        "country_code": "IN",
+        "city": "MUMBAI",
+        "website": "www.nseindia.com"
+      }
+    },
+    {
+      "name": "NTPC LTD",
+      "symbol": "NTPC.XNSE",
+      "has_intraday": false,
+      "has_eod": true,
+      "country": null,
+      "stock_exchange": {
+        "name": "NATIONAL STOCK EXCHANGE OF INDIA",
+        "acronym": "NSE",
+        "mic": "XNSE",
+        "country": null,
+        "country_code": "IN",
+        "city": "MUMBAI",
+        "website": "www.nseindia.com"
+      }
+    },
+    {
+      "name": "INDIAN OIL CORP",
+      "symbol": "IOC.XNSE",
+      "has_intraday": false,
+      "has_eod": true,
+      "country": null,
+      "stock_exchange": {
+        "name": "NATIONAL STOCK EXCHANGE OF INDIA",
+        "acronym": "NSE",
+        "mic": "XNSE",
+        "country": null,
+        "country_code": "IN",
+        "city": "MUMBAI",
+        "website": "www.nseindia.com"
+      }
+    },
+    {
+      "name": "POWER GRID CORP",
+      "symbol": "POWERGRID.XNSE",
+      "has_intraday": false,
+      "has_eod": true,
+      "country": null,
+      "stock_exchange": {
+        "name": "NATIONAL STOCK EXCHANGE OF INDIA",
+        "acronym": "NSE",
+        "mic": "XNSE",
+        "country": null,
+        "country_code": "IN",
+        "city": "MUMBAI",
+        "website": "www.nseindia.com"
+      }
+    },
+    {
+      "name": "BHARAT PETROL CORP",
+      "symbol": "BPCL.XNSE",
+      "has_intraday": false,
+      "has_eod": true,
+      "country": null,
+      "stock_exchange": {
+        "name": "NATIONAL STOCK EXCHANGE OF INDIA",
+        "acronym": "NSE",
+        "mic": "XNSE",
+        "country": null,
+        "country_code": "IN",
+        "city": "MUMBAI",
+        "website": "www.nseindia.com"
+      }
+    },
+    {
+      "name": "SBI LIFE INSURANCE",
+      "symbol": "SBILIFE.XNSE",
+      "has_intraday": false,
+      "has_eod": true,
+      "country": null,
+      "stock_exchange": {
+        "name": "NATIONAL STOCK EXCHANGE OF INDIA",
+        "acronym": "NSE",
+        "mic": "XNSE",
+        "country": null,
+        "country_code": "IN",
+        "city": "MUMBAI",
+        "website": "www.nseindia.com"
+      }
+    },
+    {
+      "name": "SUN PHARMACEUTICAL",
+      "symbol": "SUNPHARMA.XNSE",
+      "has_intraday": false,
+      "has_eod": true,
+      "country": null,
+      "stock_exchange": {
+        "name": "NATIONAL STOCK EXCHANGE OF INDIA",
+        "acronym": "NSE",
+        "mic": "XNSE",
+        "country": null,
+        "country_code": "IN",
+        "city": "MUMBAI",
+        "website": "www.nseindia.com"
+      }
+    },
+    {
+      "name": "DABUR INDIA LTD",
+      "symbol": "DABUR.XNSE",
+      "has_intraday": false,
+      "has_eod": true,
+      "country": null,
+      "stock_exchange": {
+        "name": "NATIONAL STOCK EXCHANGE OF INDIA",
+        "acronym": "NSE",
+        "mic": "XNSE",
+        "country": null,
+        "country_code": "IN",
+        "city": "MUMBAI",
+        "website": "www.nseindia.com"
+      }
+    },
+    {
+      "name": "SHREE CEMENT LTD",
+      "symbol": "SHREECEM.XNSE",
+      "has_intraday": false,
+      "has_eod": true,
+      "country": null,
+      "stock_exchange": {
+        "name": "NATIONAL STOCK EXCHANGE OF INDIA",
+        "acronym": "NSE",
+        "mic": "XNSE",
+        "country": null,
+        "country_code": "IN",
+        "city": "MUMBAI",
+        "website": "www.nseindia.com"
+      }
+    },
+    {
+      "name": "PIDILITE INDUSTRIE",
+      "symbol": "PIDILITIND.XNSE",
+      "has_intraday": false,
+      "has_eod": true,
+      "country": null,
+      "stock_exchange": {
+        "name": "NATIONAL STOCK EXCHANGE OF INDIA",
+        "acronym": "NSE",
+        "mic": "XNSE",
+        "country": null,
+        "country_code": "IN",
+        "city": "MUMBAI",
+        "website": "www.nseindia.com"
+      }
+    },
+    {
+      "name": "INDUSIND BANK LTD",
+      "symbol": "INDUSINDBK.XNSE",
+      "has_intraday": false,
+      "has_eod": true,
+      "country": null,
+      "stock_exchange": {
+        "name": "NATIONAL STOCK EXCHANGE OF INDIA",
+        "acronym": "NSE",
+        "mic": "XNSE",
+        "country": null,
+        "country_code": "IN",
+        "city": "MUMBAI",
+        "website": "www.nseindia.com"
+      }
+    },
+    {
+      "name": "TECH MAHINDRA",
+      "symbol": "TECHM.XNSE",
+      "has_intraday": false,
+      "has_eod": true,
+      "country": null,
+      "stock_exchange": {
+        "name": "NATIONAL STOCK EXCHANGE OF INDIA",
+        "acronym": "NSE",
+        "mic": "XNSE",
+        "country": null,
+        "country_code": "IN",
+        "city": "MUMBAI",
+        "website": "www.nseindia.com"
+      }
+    },
+    {
+      "name": "BRITANNIA INDS",
+      "symbol": "BRITANNIA.XNSE",
+      "has_intraday": false,
+      "has_eod": true,
+      "country": null,
+      "stock_exchange": {
+        "name": "NATIONAL STOCK EXCHANGE OF INDIA",
+        "acronym": "NSE",
+        "mic": "XNSE",
+        "country": null,
+        "country_code": "IN",
+        "city": "MUMBAI",
+        "website": "www.nseindia.com"
+      }
+    },
+    {
+      "name": "HINDUSTAN ZINC",
+      "symbol": "HINDZINC.XNSE",
+      "has_intraday": false,
+      "has_eod": true,
+      "country": null,
+      "stock_exchange": {
+        "name": "NATIONAL STOCK EXCHANGE OF INDIA",
+        "acronym": "NSE",
+        "mic": "XNSE",
+        "country": null,
+        "country_code": "IN",
+        "city": "MUMBAI",
+        "website": "www.nseindia.com"
+      }
+    },
+    {
+      "name": "ADANI PORT SPECIAL",
+      "symbol": "ADANIPORTS.XNSE",
+      "has_intraday": false,
+      "has_eod": true,
+      "country": null,
+      "stock_exchange": {
+        "name": "NATIONAL STOCK EXCHANGE OF INDIA",
+        "acronym": "NSE",
+        "mic": "XNSE",
+        "country": null,
+        "country_code": "IN",
+        "city": "MUMBAI",
+        "website": "www.nseindia.com"
+      }
+    },
+    {
+      "name": "ICICI PRUDENTIAL L",
+      "symbol": "ICICIPRULI.XNSE",
+      "has_intraday": false,
+      "has_eod": true,
+      "country": null,
+      "stock_exchange": {
+        "name": "NATIONAL STOCK EXCHANGE OF INDIA",
+        "acronym": "NSE",
+        "mic": "XNSE",
+        "country": null,
+        "country_code": "IN",
+        "city": "MUMBAI",
+        "website": "www.nseindia.com"
+      }
+    },
+    {
+      "name": "HDFC ASSET MANAGEM",
+      "symbol": "HDFCAMC.XNSE",
+      "has_intraday": false,
+      "has_eod": true,
+      "country": null,
+      "stock_exchange": {
+        "name": "NATIONAL STOCK EXCHANGE OF INDIA",
+        "acronym": "NSE",
+        "mic": "XNSE",
+        "country": null,
+        "country_code": "IN",
+        "city": "MUMBAI",
+        "website": "www.nseindia.com"
+      }
+    },
+    {
+      "name": "BANDHAN BANK LTD",
+      "symbol": "BANDHANBNK.XNSE",
+      "has_intraday": false,
+      "has_eod": true,
+      "country": null,
+      "stock_exchange": {
+        "name": "NATIONAL STOCK EXCHANGE OF INDIA",
+        "acronym": "NSE",
+        "mic": "XNSE",
+        "country": null,
+        "country_code": "IN",
+        "city": "MUMBAI",
+        "website": "www.nseindia.com"
+      }
+    },
+    {
+      "name": "GODREJ CONSUMER PR",
+      "symbol": "GODREJCP.XNSE",
+      "has_intraday": false,
+      "has_eod": true,
+      "country": null,
+      "stock_exchange": {
+        "name": "NATIONAL STOCK EXCHANGE OF INDIA",
+        "acronym": "NSE",
+        "mic": "XNSE",
+        "country": null,
+        "country_code": "IN",
+        "city": "MUMBAI",
+        "website": "www.nseindia.com"
+      }
+    },
+    {
+      "name": "JSW STEEL LTD",
+      "symbol": "JSWSTEEL.XNSE",
+      "has_intraday": false,
+      "has_eod": true,
+      "country": null,
+      "stock_exchange": {
+        "name": "NATIONAL STOCK EXCHANGE OF INDIA",
+        "acronym": "NSE",
+        "mic": "XNSE",
+        "country": null,
+        "country_code": "IN",
+        "city": "MUMBAI",
+        "website": "www.nseindia.com"
+      }
+    },
+    {
+      "name": "DIVI'S LABORATORIE",
+      "symbol": "DIVISLAB.XNSE",
+      "has_intraday": false,
+      "has_eod": true,
+      "country": null,
+      "stock_exchange": {
+        "name": "NATIONAL STOCK EXCHANGE OF INDIA",
+        "acronym": "NSE",
+        "mic": "XNSE",
+        "country": null,
+        "country_code": "IN",
+        "city": "MUMBAI",
+        "website": "www.nseindia.com"
+      }
+    },
+    {
+      "name": "BERGER PAINTS IND",
+      "symbol": "BERGEPAINT.XNSE",
+      "has_intraday": false,
+      "has_eod": true,
+      "country": null,
+      "stock_exchange": {
+        "name": "NATIONAL STOCK EXCHANGE OF INDIA",
+        "acronym": "NSE",
+        "mic": "XNSE",
+        "country": null,
+        "country_code": "IN",
+        "city": "MUMBAI",
+        "website": "www.nseindia.com"
+      }
+    },
+    {
+      "name": "ICICI LOMBARD GEN",
+      "symbol": "ICICIGI.XNSE",
+      "has_intraday": false,
+      "has_eod": true,
+      "country": null,
+      "stock_exchange": {
+        "name": "NATIONAL STOCK EXCHANGE OF INDIA",
+        "acronym": "NSE",
+        "mic": "XNSE",
+        "country": null,
+        "country_code": "IN",
+        "city": "MUMBAI",
+        "website": "www.nseindia.com"
+      }
+    },
+    {
+      "name": "DLF LIMITED",
+      "symbol": "DLF.XNSE",
+      "has_intraday": false,
+      "has_eod": true,
+      "country": null,
+      "stock_exchange": {
+        "name": "NATIONAL STOCK EXCHANGE OF INDIA",
+        "acronym": "NSE",
+        "mic": "XNSE",
+        "country": null,
+        "country_code": "IN",
+        "city": "MUMBAI",
+        "website": "www.nseindia.com"
+      }
+    },
+    {
+      "name": "DR REDDYS LABS",
+      "symbol": "DRREDDY.XNSE",
+      "has_intraday": false,
+      "has_eod": true,
+      "country": null,
+      "stock_exchange": {
+        "name": "NATIONAL STOCK EXCHANGE OF INDIA",
+        "acronym": "NSE",
+        "mic": "XNSE",
+        "country": null,
+        "country_code": "IN",
+        "city": "MUMBAI",
+        "website": "www.nseindia.com"
+      }
+    },
+    {
+      "name": "INTERGLOBE AVIATIO",
+      "symbol": "INDIGO.XNSE",
+      "has_intraday": false,
+      "has_eod": true,
+      "country": null,
+      "stock_exchange": {
+        "name": "NATIONAL STOCK EXCHANGE OF INDIA",
+        "acronym": "NSE",
+        "mic": "XNSE",
+        "country": null,
+        "country_code": "IN",
+        "city": "MUMBAI",
+        "website": "www.nseindia.com"
+      }
+    },
+    {
+      "name": "SIEMENS INDIA LTD",
+      "symbol": "SIEMENS.XNSE",
+      "has_intraday": false,
+      "has_eod": true,
+      "country": null,
+      "stock_exchange": {
+        "name": "NATIONAL STOCK EXCHANGE OF INDIA",
+        "acronym": "NSE",
+        "mic": "XNSE",
+        "country": null,
+        "country_code": "IN",
+        "city": "MUMBAI",
+        "website": "www.nseindia.com"
+      }
+    },
+    {
+      "name": "EICHER MOTORS",
+      "symbol": "EICHERMOT.XNSE",
+      "has_intraday": false,
+      "has_eod": true,
+      "country": null,
+      "stock_exchange": {
+        "name": "NATIONAL STOCK EXCHANGE OF INDIA",
+        "acronym": "NSE",
+        "mic": "XNSE",
+        "country": null,
+        "country_code": "IN",
+        "city": "MUMBAI",
+        "website": "www.nseindia.com"
+      }
+    },
+    {
+      "name": "TATA MOTORS LTD.",
+      "symbol": "TATAMOTORS.XNSE",
+      "has_intraday": false,
+      "has_eod": true,
+      "country": null,
+      "stock_exchange": {
+        "name": "NATIONAL STOCK EXCHANGE OF INDIA",
+        "acronym": "NSE",
+        "mic": "XNSE",
+        "country": null,
+        "country_code": "IN",
+        "city": "MUMBAI",
+        "website": "www.nseindia.com"
+      }
+    },
+    {
+      "name": "GAIL INDIA LTD",
+      "symbol": "GAIL.XNSE",
+      "has_intraday": false,
+      "has_eod": true,
+      "country": null,
+      "stock_exchange": {
+        "name": "NATIONAL STOCK EXCHANGE OF INDIA",
+        "acronym": "NSE",
+        "mic": "XNSE",
+        "country": null,
+        "country_code": "IN",
+        "city": "MUMBAI",
+        "website": "www.nseindia.com"
+      }
+    },
+    {
+      "name": "GRASIM INDUSTRIES",
+      "symbol": "GRASIM.XNSE",
+      "has_intraday": false,
+      "has_eod": true,
+      "country": null,
+      "stock_exchange": {
+        "name": "NATIONAL STOCK EXCHANGE OF INDIA",
+        "acronym": "NSE",
+        "mic": "XNSE",
+        "country": null,
+        "country_code": "IN",
+        "city": "MUMBAI",
+        "website": "www.nseindia.com"
+      }
+    },
+    {
+      "name": "VEDANTA LIMITED",
+      "symbol": "VEDL.XNSE",
+      "has_intraday": false,
+      "has_eod": true,
+      "country": null,
+      "stock_exchange": {
+        "name": "NATIONAL STOCK EXCHANGE OF INDIA",
+        "acronym": "NSE",
+        "mic": "XNSE",
+        "country": null,
+        "country_code": "IN",
+        "city": "MUMBAI",
+        "website": "www.nseindia.com"
+      }
+    },
+    {
+      "name": "TATA STEEL LTD",
+      "symbol": "TATASTEEL.XNSE",
+      "has_intraday": false,
+      "has_eod": true,
+      "country": null,
+      "stock_exchange": {
+        "name": "NATIONAL STOCK EXCHANGE OF INDIA",
+        "acronym": "NSE",
+        "mic": "XNSE",
+        "country": null,
+        "country_code": "IN",
+        "city": "MUMBAI",
+        "website": "www.nseindia.com"
+      }
+    },
+    {
+      "name": "AMBUJA CEMENTS LTD",
+      "symbol": "AMBUJACEM.XNSE",
+      "has_intraday": false,
+      "has_eod": true,
+      "country": null,
+      "stock_exchange": {
+        "name": "NATIONAL STOCK EXCHANGE OF INDIA",
+        "acronym": "NSE",
+        "mic": "XNSE",
+        "country": null,
+        "country_code": "IN",
+        "city": "MUMBAI",
+        "website": "www.nseindia.com"
+      }
+    },
+    {
+      "name": "BHARTI INFRATEL LT",
+      "symbol": "INFRATEL.XNSE",
+      "has_intraday": false,
+      "has_eod": true,
+      "country": null,
+      "stock_exchange": {
+        "name": "NATIONAL STOCK EXCHANGE OF INDIA",
+        "acronym": "NSE",
+        "mic": "XNSE",
+        "country": null,
+        "country_code": "IN",
+        "city": "MUMBAI",
+        "website": "www.nseindia.com"
+      }
+    },
+    {
+      "name": "GLAXOSMITHKLINE CO",
+      "symbol": "GSKCONS.XNSE",
+      "has_intraday": false,
+      "has_eod": true,
+      "country": null,
+      "stock_exchange": {
+        "name": "NATIONAL STOCK EXCHANGE OF INDIA",
+        "acronym": "NSE",
+        "mic": "XNSE",
+        "country": null,
+        "country_code": "IN",
+        "city": "MUMBAI",
+        "website": "www.nseindia.com"
+      }
+    },
+    {
+      "name": "HERO MOTOCORP LTD",
+      "symbol": "HEROMOTOCO.XNSE",
+      "has_intraday": false,
+      "has_eod": true,
+      "country": null,
+      "stock_exchange": {
+        "name": "NATIONAL STOCK EXCHANGE OF INDIA",
+        "acronym": "NSE",
+        "mic": "XNSE",
+        "country": null,
+        "country_code": "IN",
+        "city": "MUMBAI",
+        "website": "www.nseindia.com"
+      }
+    },
+    {
+      "name": "UPL LIMITED",
+      "symbol": "UPL.XNSE",
+      "has_intraday": false,
+      "has_eod": true,
+      "country": null,
+      "stock_exchange": {
+        "name": "NATIONAL STOCK EXCHANGE OF INDIA",
+        "acronym": "NSE",
+        "mic": "XNSE",
+        "country": null,
+        "country_code": "IN",
+        "city": "MUMBAI",
+        "website": "www.nseindia.com"
+      }
+    },
+    {
+      "name": "HAVELLS INDIA",
+      "symbol": "HAVELLS.XNSE",
+      "has_intraday": false,
+      "has_eod": true,
+      "country": null,
+      "stock_exchange": {
+        "name": "NATIONAL STOCK EXCHANGE OF INDIA",
+        "acronym": "NSE",
+        "mic": "XNSE",
+        "country": null,
+        "country_code": "IN",
+        "city": "MUMBAI",
+        "website": "www.nseindia.com"
+      }
+    },
+    {
+      "name": "BAJAJ HLDG & INVES",
+      "symbol": "BAJAJHLDNG.XNSE",
+      "has_intraday": false,
+      "has_eod": true,
+      "country": null,
+      "stock_exchange": {
+        "name": "NATIONAL STOCK EXCHANGE OF INDIA",
+        "acronym": "NSE",
+        "mic": "XNSE",
+        "country": null,
+        "country_code": "IN",
+        "city": "MUMBAI",
+        "website": "www.nseindia.com"
+      }
+    },
+    {
+      "name": "MARICO LTD",
+      "symbol": "MARICO.XNSE",
+      "has_intraday": false,
+      "has_eod": true,
+      "country": null,
+      "stock_exchange": {
+        "name": "NATIONAL STOCK EXCHANGE OF INDIA",
+        "acronym": "NSE",
+        "mic": "XNSE",
+        "country": null,
+        "country_code": "IN",
+        "city": "MUMBAI",
+        "website": "www.nseindia.com"
+      }
+    },
+    {
+      "name": "BOSCH LTD",
+      "symbol": "BOSCHLTD.XNSE",
+      "has_intraday": false,
+      "has_eod": true,
+      "country": null,
+      "stock_exchange": {
+        "name": "NATIONAL STOCK EXCHANGE OF INDIA",
+        "acronym": "NSE",
+        "mic": "XNSE",
+        "country": null,
+        "country_code": "IN",
+        "city": "MUMBAI",
+        "website": "www.nseindia.com"
+      }
+    },
+    {
+      "name": "PETRONET LNG",
+      "symbol": "PETRONET.XNSE",
+      "has_intraday": false,
+      "has_eod": true,
+      "country": null,
+      "stock_exchange": {
+        "name": "NATIONAL STOCK EXCHANGE OF INDIA",
+        "acronym": "NSE",
+        "mic": "XNSE",
+        "country": null,
+        "country_code": "IN",
+        "city": "MUMBAI",
+        "website": "www.nseindia.com"
+      }
+    },
+    {
+      "name": "TORRENT PHARM",
+      "symbol": "TORNTPHARM.XNSE",
+      "has_intraday": false,
+      "has_eod": true,
+      "country": null,
+      "stock_exchange": {
+        "name": "NATIONAL STOCK EXCHANGE OF INDIA",
+        "acronym": "NSE",
+        "mic": "XNSE",
+        "country": null,
+        "country_code": "IN",
+        "city": "MUMBAI",
+        "website": "www.nseindia.com"
+      }
+    },
+    {
+      "name": "PROCTER&GAMBLE IND",
+      "symbol": "PGHH.XNSE",
+      "has_intraday": false,
+      "has_eod": true,
+      "country": null,
+      "stock_exchange": {
+        "name": "NATIONAL STOCK EXCHANGE OF INDIA",
+        "acronym": "NSE",
+        "mic": "XNSE",
+        "country": null,
+        "country_code": "IN",
+        "city": "MUMBAI",
+        "website": "www.nseindia.com"
+      }
+    },
+    {
+      "name": "NMDC LTD",
+      "symbol": "NMDC.XNSE",
+      "has_intraday": false,
+      "has_eod": true,
+      "country": null,
+      "stock_exchange": {
+        "name": "NATIONAL STOCK EXCHANGE OF INDIA",
+        "acronym": "NSE",
+        "mic": "XNSE",
+        "country": null,
+        "country_code": "IN",
+        "city": "MUMBAI",
+        "website": "www.nseindia.com"
+      }
+    },
+    {
+      "name": "SHRIRAM TRANSPORT",
+      "symbol": "SRTRANSFIN.XNSE",
+      "has_intraday": false,
+      "has_eod": true,
+      "country": null,
+      "stock_exchange": {
+        "name": "NATIONAL STOCK EXCHANGE OF INDIA",
+        "acronym": "NSE",
+        "mic": "XNSE",
+        "country": null,
+        "country_code": "IN",
+        "city": "MUMBAI",
+        "website": "www.nseindia.com"
+      }
+    },
+    {
+      "name": "ADANI TRANSMISS.IN",
+      "symbol": "ADANITRANS.XNSE",
+      "has_intraday": false,
+      "has_eod": true,
+      "country": null,
+      "stock_exchange": {
+        "name": "NATIONAL STOCK EXCHANGE OF INDIA",
+        "acronym": "NSE",
+        "mic": "XNSE",
+        "country": null,
+        "country_code": "IN",
+        "city": "MUMBAI",
+        "website": "www.nseindia.com"
+      }
+    },
+    {
+      "name": "WHIRLPOOL OF INDIA",
+      "symbol": "WHIRLPOOL.XNSE",
+      "has_intraday": false,
+      "has_eod": true,
+      "country": null,
+      "stock_exchange": {
+        "name": "NATIONAL STOCK EXCHANGE OF INDIA",
+        "acronym": "NSE",
+        "mic": "XNSE",
+        "country": null,
+        "country_code": "IN",
+        "city": "MUMBAI",
+        "website": "www.nseindia.com"
+      }
+    },
+    {
+      "name": "INDIAN RAILWAY CAT",
+      "symbol": "IRCTC.XNSE",
+      "has_intraday": false,
+      "has_eod": true,
+      "country": null,
+      "stock_exchange": {
+        "name": "NATIONAL STOCK EXCHANGE OF INDIA",
+        "acronym": "NSE",
+        "mic": "XNSE",
+        "country": null,
+        "country_code": "IN",
+        "city": "MUMBAI",
+        "website": "www.nseindia.com"
+      }
+    },
+    {
+      "name": "KANSAI NEROLAC PAI",
+      "symbol": "KANSAINER.XNSE",
+      "has_intraday": false,
+      "has_eod": true,
+      "country": null,
+      "stock_exchange": {
+        "name": "NATIONAL STOCK EXCHANGE OF INDIA",
+        "acronym": "NSE",
+        "mic": "XNSE",
+        "country": null,
+        "country_code": "IN",
+        "city": "MUMBAI",
+        "website": "www.nseindia.com"
+      }
+    },
+    {
+      "name": "CADILA HEALTHCARE",
+      "symbol": "CADILAHC.XNSE",
+      "has_intraday": false,
+      "has_eod": true,
+      "country": null,
+      "stock_exchange": {
+        "name": "NATIONAL STOCK EXCHANGE OF INDIA",
+        "acronym": "NSE",
+        "mic": "XNSE",
+        "country": null,
+        "country_code": "IN",
+        "city": "MUMBAI",
+        "website": "www.nseindia.com"
+      }
+    },
+    {
+      "name": "TRENT",
+      "symbol": "TRENT.XNSE",
+      "has_intraday": false,
+      "has_eod": true,
+      "country": null,
+      "stock_exchange": {
+        "name": "NATIONAL STOCK EXCHANGE OF INDIA",
+        "acronym": "NSE",
+        "mic": "XNSE",
+        "country": null,
+        "country_code": "IN",
+        "city": "MUMBAI",
+        "website": "www.nseindia.com"
+      }
+    },
+    {
+      "name": "GODREJ PROPERTIES",
+      "symbol": "GODREJPROP.XNSE",
+      "has_intraday": false,
+      "has_eod": true,
+      "country": null,
+      "stock_exchange": {
+        "name": "NATIONAL STOCK EXCHANGE OF INDIA",
+        "acronym": "NSE",
+        "mic": "XNSE",
+        "country": null,
+        "country_code": "IN",
+        "city": "MUMBAI",
+        "website": "www.nseindia.com"
+      }
+    },
+    {
+      "name": "ACC LIMITED",
+      "symbol": "ACC.XNSE",
+      "has_intraday": false,
+      "has_eod": true,
+      "country": null,
+      "stock_exchange": {
+        "name": "NATIONAL STOCK EXCHANGE OF INDIA",
+        "acronym": "NSE",
+        "mic": "XNSE",
+        "country": null,
+        "country_code": "IN",
+        "city": "MUMBAI",
+        "website": "www.nseindia.com"
+      }
+    },
+    {
+      "name": "ADANI GREEN ENERGY",
+      "symbol": "ADANIGREEN.XNSE",
+      "has_intraday": false,
+      "has_eod": true,
+      "country": null,
+      "stock_exchange": {
+        "name": "NATIONAL STOCK EXCHANGE OF INDIA",
+        "acronym": "NSE",
+        "mic": "XNSE",
+        "country": null,
+        "country_code": "IN",
+        "city": "MUMBAI",
+        "website": "www.nseindia.com"
+      }
+    },
+    {
+      "name": "CHOLAMANDALAM INV",
+      "symbol": "CHOLAFIN.XNSE",
+      "has_intraday": false,
+      "has_eod": true,
+      "country": null,
+      "stock_exchange": {
+        "name": "NATIONAL STOCK EXCHANGE OF INDIA",
+        "acronym": "NSE",
+        "mic": "XNSE",
+        "country": null,
+        "country_code": "IN",
+        "city": "MUMBAI",
+        "website": "www.nseindia.com"
+      }
+    },
+    {
+      "name": "PAGE INDUSTRIES LT",
+      "symbol": "PAGEIND.XNSE",
+      "has_intraday": false,
+      "has_eod": true,
+      "country": null,
+      "stock_exchange": {
+        "name": "NATIONAL STOCK EXCHANGE OF INDIA",
+        "acronym": "NSE",
+        "mic": "XNSE",
+        "country": null,
+        "country_code": "IN",
+        "city": "MUMBAI",
+        "website": "www.nseindia.com"
+      }
+    },
+    {
+      "name": "ADANI ENTERPRISES",
+      "symbol": "ADANIENT.XNSE",
+      "has_intraday": false,
+      "has_eod": true,
+      "country": null,
+      "stock_exchange": {
+        "name": "NATIONAL STOCK EXCHANGE OF INDIA",
+        "acronym": "NSE",
+        "mic": "XNSE",
+        "country": null,
+        "country_code": "IN",
+        "city": "MUMBAI",
+        "website": "www.nseindia.com"
+      }
+    },
+    {
+      "name": "ABB INDIA LTD",
+      "symbol": "ABB.XNSE",
+      "has_intraday": false,
+      "has_eod": true,
+      "country": null,
+      "stock_exchange": {
+        "name": "NATIONAL STOCK EXCHANGE OF INDIA",
+        "acronym": "NSE",
+        "mic": "XNSE",
+        "country": null,
+        "country_code": "IN",
+        "city": "MUMBAI",
+        "website": "www.nseindia.com"
+      }
+    },
+    {
+      "name": "ZEE ENTERTAIN ENT",
+      "symbol": "ZEEL.XNSE",
+      "has_intraday": false,
+      "has_eod": true,
+      "country": null,
+      "stock_exchange": {
+        "name": "NATIONAL STOCK EXCHANGE OF INDIA",
+        "acronym": "NSE",
+        "mic": "XNSE",
+        "country": null,
+        "country_code": "IN",
+        "city": "MUMBAI",
+        "website": "www.nseindia.com"
+      }
+    },
+    {
+      "name": "APOLLO HOSPITALS.",
+      "symbol": "APOLLOHOSP.XNSE",
+      "has_intraday": false,
+      "has_eod": true,
+      "country": null,
+      "stock_exchange": {
+        "name": "NATIONAL STOCK EXCHANGE OF INDIA",
+        "acronym": "NSE",
+        "mic": "XNSE",
+        "country": null,
+        "country_code": "IN",
+        "city": "MUMBAI",
+        "website": "www.nseindia.com"
+      }
+    },
+    {
+      "name": "VARUN BEVERAGES",
+      "symbol": "VBL.XNSE",
+      "has_intraday": false,
+      "has_eod": true,
+      "country": null,
+      "stock_exchange": {
+        "name": "NATIONAL STOCK EXCHANGE OF INDIA",
+        "acronym": "NSE",
+        "mic": "XNSE",
+        "country": null,
+        "country_code": "IN",
+        "city": "MUMBAI",
+        "website": "www.nseindia.com"
+      }
+    },
+    {
+      "name": "REC LTD",
+      "symbol": "RECLTD.XNSE",
+      "has_intraday": false,
+      "has_eod": true,
+      "country": null,
+      "stock_exchange": {
+        "name": "NATIONAL STOCK EXCHANGE OF INDIA",
+        "acronym": "NSE",
+        "mic": "XNSE",
+        "country": null,
+        "country_code": "IN",
+        "city": "MUMBAI",
+        "website": "www.nseindia.com"
+      }
+    },
+    {
+      "name": "3M INDIA LTD",
+      "symbol": "3MINDIA.XNSE",
+      "has_intraday": false,
+      "has_eod": true,
+      "country": null,
+      "stock_exchange": {
+        "name": "NATIONAL STOCK EXCHANGE OF INDIA",
+        "acronym": "NSE",
+        "mic": "XNSE",
+        "country": null,
+        "country_code": "IN",
+        "city": "MUMBAI",
+        "website": "www.nseindia.com"
+      }
+    },
+    {
+      "name": "SRF LIMITED",
+      "symbol": "SRF.XNSE",
+      "has_intraday": false,
+      "has_eod": true,
+      "country": null,
+      "stock_exchange": {
+        "name": "NATIONAL STOCK EXCHANGE OF INDIA",
+        "acronym": "NSE",
+        "mic": "XNSE",
+        "country": null,
+        "country_code": "IN",
+        "city": "MUMBAI",
+        "website": "www.nseindia.com"
+      }
+    },
+    {
+      "name": "NHPC LTD",
+      "symbol": "NHPC.XNSE",
+      "has_intraday": false,
+      "has_eod": true,
+      "country": null,
+      "stock_exchange": {
+        "name": "NATIONAL STOCK EXCHANGE OF INDIA",
+        "acronym": "NSE",
+        "mic": "XNSE",
+        "country": null,
+        "country_code": "IN",
+        "city": "MUMBAI",
+        "website": "www.nseindia.com"
+      }
+    },
+    {
+      "name": "VOLTAS LTD",
+      "symbol": "VOLTAS.XNSE",
+      "has_intraday": false,
+      "has_eod": true,
+      "country": null,
+      "stock_exchange": {
+        "name": "NATIONAL STOCK EXCHANGE OF INDIA",
+        "acronym": "NSE",
+        "mic": "XNSE",
+        "country": null,
+        "country_code": "IN",
+        "city": "MUMBAI",
+        "website": "www.nseindia.com"
+      }
+    },
+    {
+      "name": "ORACLE FIN SERVICE",
+      "symbol": "OFSS.XNSE",
+      "has_intraday": false,
+      "has_eod": true,
+      "country": null,
+      "stock_exchange": {
+        "name": "NATIONAL STOCK EXCHANGE OF INDIA",
+        "acronym": "NSE",
+        "mic": "XNSE",
+        "country": null,
+        "country_code": "IN",
+        "city": "MUMBAI",
+        "website": "www.nseindia.com"
+      }
+    },
+    {
+      "name": "HINDUSTAN AERONAUT",
+      "symbol": "HAL.XNSE",
+      "has_intraday": false,
+      "has_eod": true,
+      "country": null,
+      "stock_exchange": {
+        "name": "NATIONAL STOCK EXCHANGE OF INDIA",
+        "acronym": "NSE",
+        "mic": "XNSE",
+        "country": null,
+        "country_code": "IN",
+        "city": "MUMBAI",
+        "website": "www.nseindia.com"
+      }
+    },
+    {
+      "name": "TATA CONSUMER PROD",
+      "symbol": "TATACONSUM.XNSE",
+      "has_intraday": false,
+      "has_eod": true,
+      "country": null,
+      "stock_exchange": {
+        "name": "NATIONAL STOCK EXCHANGE OF INDIA",
+        "acronym": "NSE",
+        "mic": "XNSE",
+        "country": null,
+        "country_code": "IN",
+        "city": "MUMBAI",
+        "website": "www.nseindia.com"
+      }
+    },
+    {
+      "name": "JUBILANT FOODWORKS",
+      "symbol": "JUBLFOOD.XNSE",
+      "has_intraday": false,
+      "has_eod": true,
+      "country": null,
+      "stock_exchange": {
+        "name": "NATIONAL STOCK EXCHANGE OF INDIA",
+        "acronym": "NSE",
+        "mic": "XNSE",
+        "country": null,
+        "country_code": "IN",
+        "city": "MUMBAI",
+        "website": "www.nseindia.com"
+      }
+    },
+    {
+      "name": "GLAXO SMITHKLINE P",
+      "symbol": "GLAXO.XNSE",
+      "has_intraday": false,
+      "has_eod": true,
+      "country": null,
+      "stock_exchange": {
+        "name": "NATIONAL STOCK EXCHANGE OF INDIA",
+        "acronym": "NSE",
+        "mic": "XNSE",
+        "country": null,
+        "country_code": "IN",
+        "city": "MUMBAI",
+        "website": "www.nseindia.com"
+      }
+    },
+    {
+      "name": "ASHOK LEYLAND",
+      "symbol": "ASHOKLEY.XNSE",
+      "has_intraday": false,
+      "has_eod": true,
+      "country": null,
+      "stock_exchange": {
+        "name": "NATIONAL STOCK EXCHANGE OF INDIA",
+        "acronym": "NSE",
+        "mic": "XNSE",
+        "country": null,
+        "country_code": "IN",
+        "city": "MUMBAI",
+        "website": "www.nseindia.com"
+      }
+    },
+    {
+      "name": "BALKRISHNA INDS",
+      "symbol": "BALKRISIND.XNSE",
+      "has_intraday": false,
+      "has_eod": true,
+      "country": null,
+      "stock_exchange": {
+        "name": "NATIONAL STOCK EXCHANGE OF INDIA",
+        "acronym": "NSE",
+        "mic": "XNSE",
+        "country": null,
+        "country_code": "IN",
+        "city": "MUMBAI",
+        "website": "www.nseindia.com"
+      }
+    }
+  ]
+}
