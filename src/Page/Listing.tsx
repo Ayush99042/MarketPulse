@@ -71,7 +71,7 @@ export const Listing: React.FC = () => {
           setPage(1);
         }}
         onPageChange={setPage}
-        onRowClick={(row) => navigate(`/detail/${row.symbol}`)}
+        onRowClick={(row) => navigate(`/detail/${row.symbol}`, { state: { name: row.name } })}
       />
     </div>
   );

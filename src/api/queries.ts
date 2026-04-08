@@ -46,13 +46,10 @@ export const useTickers = (exchange: string = 'XNSE') => {
   });
 };
 
-export const usePickers = () => { };
-
 export const useStockDetail = (symbol: string, limit: number = 1000) => {
   return useQuery({
     queryKey: ['eod', symbol, limit],
     queryFn: async () => {
-
       const cacheKey = `eod_${symbol}_${limit}`;
       const cachedData = localStorage.getItem(cacheKey);
       if (cachedData) {
