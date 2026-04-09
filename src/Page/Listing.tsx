@@ -66,7 +66,7 @@ export const Listing: React.FC = () => {
               setSearchTerm(e.target.value);
               setPage(1);
             }}
-            className="w-full pl-12 pr-12 py-3.5 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-2xl shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all text-sm font-medium"
+            className="w-full pl-12 pr-12 py-3.5 bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-2xl shadow-sm outline-none focus:outline-none focus:ring-1 focus:border-blue-500 transition-colors duration-300 text-sm font-medium text-gray-900 dark:text-white placeholder-gray-500"
           />
           {searchTerm && (
             <button
