@@ -25,6 +25,19 @@ export const useLivePrice = (symbol: string | undefined): LivePriceResult => {
     let isMounted = true;
     let oldPrice: number | null = null;
 
+    const checkMarketOpen = () => {
+      const now = new Date();
+
+      const hours = now.getHours();
+      const minutes = now.getMinutes();
+      const timeInMinutes = hours * 60 + minutes;
+
+      const openTime = 9 * 60 + 15;
+      const closeTime = 15 * 60 + 35;
+
+      return timeInMinutes >= openTime && timeInMinutes < closeTime;
+    };
+
     const fetchPrice = async () => {
       try {
         const result = await fetchNSEQuote(symbol);
@@ -59,11 +72,16 @@ export const useLivePrice = (symbol: string | undefined): LivePriceResult => {
     };
 
     fetchPrice();
-    const interval = setInterval(fetchPrice, 1500);
+
+
+    let interval: any;
+    if (checkMarketOpen()) {
+      interval = setInterval(fetchPrice, 3500);
+    }
 
     return () => {
       isMounted = false;
-      clearInterval(interval);
+      if (interval) clearInterval(interval);
     };
   }, [symbol]);
 
