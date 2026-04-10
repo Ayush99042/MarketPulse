@@ -19,7 +19,10 @@ export default defineConfig({
       '/api/marketstack': {
         target: 'https://api.marketstack.com',
         changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/api\/marketstack/, ''),
+        rewrite: (path) => {
+          const res = path.replace(/^\/api\/marketstack/, '');
+          return res.startsWith('?') ? `/v1/eod${res}` : res || '/v1/eod';
+        },
       },
     },
   },

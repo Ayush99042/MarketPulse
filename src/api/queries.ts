@@ -60,7 +60,6 @@ export const useStockDetail = (symbol: string, limit: number = 1000) => {
 
       const { data } = await axios.get<{ data: EodData[] }>("/api/marketstack", {
         params: {
-          path: "v1/eod",
           access_key: import.meta.env.VITE_MARKETSTACK_ACCESS_KEY,
           symbols: symbol,
           limit,
