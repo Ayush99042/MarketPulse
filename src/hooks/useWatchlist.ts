@@ -1,8 +1,8 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
 
 export const useWatchlist = () => {
   const [watchlist, setWatchlist] = useState<string[]>(() => {
-    const saved = localStorage.getItem('marketpulse_watchlist');
+    const saved = localStorage.getItem("marketpulse_watchlist");
     if (saved) {
       try {
         return JSON.parse(saved);
@@ -14,14 +14,14 @@ export const useWatchlist = () => {
   });
 
   useEffect(() => {
-    localStorage.setItem('marketpulse_watchlist', JSON.stringify(watchlist));
+    localStorage.setItem("marketpulse_watchlist", JSON.stringify(watchlist));
   }, [watchlist]);
 
   const toggleWatchlist = (symbol: string) => {
-    setWatchlist((prev) => 
-      prev.includes(symbol) 
-        ? prev.filter((s) => s !== symbol) 
-        : [...prev, symbol]
+    setWatchlist((prev) =>
+      prev.includes(symbol)
+        ? prev.filter((s) => s !== symbol)
+        : [...prev, symbol],
     );
   };
 

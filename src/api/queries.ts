@@ -1,5 +1,5 @@
-import { useQuery } from '@tanstack/react-query';
-import axios from 'axios';
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
 
 export interface Ticker {
   name: string;
@@ -36,11 +36,13 @@ export interface EodData {
   date: string;
 }
 
-export const useTickers = (exchange: string = 'XNSE') => {
+export const useTickers = (exchange: string = "XNSE") => {
   return useQuery({
-    queryKey: ['tickers', exchange],
+    queryKey: ["tickers", exchange],
     queryFn: async () => {
-      const { data } = await axios.get<{ data: Ticker[] }>('/data/tickers.json');
+      const { data } = await axios.get<{ data: Ticker[] }>(
+        "/data/tickers.json",
+      );
       return data.data;
     },
   });
@@ -48,7 +50,7 @@ export const useTickers = (exchange: string = 'XNSE') => {
 
 export const useStockDetail = (symbol: string, limit: number = 1000) => {
   return useQuery({
-    queryKey: ['eod', symbol, limit],
+    queryKey: ["eod", symbol, limit],
     queryFn: async () => {
       const cacheKey = `eod_${symbol}_${limit}`;
       const cachedData = localStorage.getItem(cacheKey);
@@ -56,12 +58,12 @@ export const useStockDetail = (symbol: string, limit: number = 1000) => {
         return JSON.parse(cachedData) as EodData[];
       }
 
-      const { data } = await axios.get<{ data: EodData[] }>('/api/v1/eod', {
+      const { data } = await axios.get<{ data: EodData[] }>("/api/v1/eod", {
         params: {
           access_key: import.meta.env.VITE_MARKETSTACK_ACCESS_KEY,
           symbols: symbol,
-          limit
-        }
+          limit,
+        },
       });
 
       localStorage.setItem(cacheKey, JSON.stringify(data.data));

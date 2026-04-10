@@ -1,21 +1,26 @@
-import { useState, useEffect } from 'react';
-import { fetchNSEQuote } from '../api/nse';
-import type { NSESockEntry } from '../api/nse';
+import { useState, useEffect } from "react";
+import { fetchNSEQuote } from "../api/nse";
+import type { NSESockEntry } from "../api/nse";
 
 export interface LivePriceResult {
   data: NSESockEntry | null;
   price: number | null;
   prevPrice: number | null;
-  direction: 'up' | 'down' | 'stable';
+  direction: "up" | "down" | "stable";
   loading: boolean;
   error: string | null;
 }
 
-export const useLivePrice = (symbol: string | undefined, intervalMs: number = 1500): LivePriceResult => {
+export const useLivePrice = (
+  symbol: string | undefined,
+  intervalMs: number = 1500,
+): LivePriceResult => {
   const [data, setData] = useState<NSESockEntry | null>(null);
   const [price, setPrice] = useState<number | null>(null);
   const [prevPrice, setPrevPrice] = useState<number | null>(null);
-  const [direction, setDirection] = useState<'up' | 'down' | 'stable'>('stable');
+  const [direction, setDirection] = useState<"up" | "down" | "stable">(
+    "stable",
+  );
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -54,8 +59,8 @@ export const useLivePrice = (symbol: string | undefined, intervalMs: number = 15
         setPrice(newPrice);
 
         if (result.priceInfo.pChange !== undefined) {
-          if (result.priceInfo.pChange >= 0) setDirection('up');
-          else setDirection('down');
+          if (result.priceInfo.pChange >= 0) setDirection("up");
+          else setDirection("down");
         }
 
         oldPrice = newPrice;
@@ -63,16 +68,15 @@ export const useLivePrice = (symbol: string | undefined, intervalMs: number = 15
         setError(null);
       } catch (err: any) {
         if (!isMounted) return;
-        console.error('Polling error:', err);
+        console.error("Polling error:", err);
         if (loading) {
-          setError('Failed to fetch live price');
+          setError("Failed to fetch live price");
           setLoading(false);
         }
       }
     };
 
     fetchPrice();
-
 
     let interval: any;
     if (checkMarketOpen() && intervalMs > 0) {

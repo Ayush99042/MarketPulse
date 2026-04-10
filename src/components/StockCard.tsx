@@ -1,9 +1,9 @@
-import React from 'react';
-import { motion } from 'framer-motion';
-import { TrendingUp, ArrowRight, Bookmark } from 'lucide-react';
-import { Card } from './Card';
-import type { Ticker } from '../api/queries';
-import { useWatchlist } from '../hooks/useWatchlist';
+import React from "react";
+import { motion } from "framer-motion";
+import { ArrowRight, Bookmark } from "lucide-react";
+import { Card } from "./Card";
+import type { Ticker } from "../api/queries";
+import { useWatchlist } from "../hooks/useWatchlist";
 
 interface StockCardProps {
   ticker: Ticker;
@@ -16,8 +16,12 @@ export const StockCard: React.FC<StockCardProps> = ({ ticker, onClick }) => {
 
   const firstLetter = ticker.name.charAt(0).toUpperCase();
   const colors = [
-    'bg-blue-500', 'bg-emerald-500', 'bg-indigo-500',
-    'bg-violet-500', 'bg-cyan-500', 'bg-teal-500'
+    "bg-blue-500",
+    "bg-emerald-500",
+    "bg-indigo-500",
+    "bg-violet-500",
+    "bg-cyan-500",
+    "bg-teal-500",
   ];
   const colorIndex = ticker.symbol.charCodeAt(0) % colors.length;
   const avatarColor = colors[colorIndex];
@@ -28,18 +32,19 @@ export const StockCard: React.FC<StockCardProps> = ({ ticker, onClick }) => {
       animate={{ opacity: 1, y: 0 }}
       whileHover={{
         y: -5,
-        transition: { duration: 0.2 }
+        transition: { duration: 0.2 },
       }}
       className="group cursor-pointer"
       onClick={onClick}
     >
       <Card className="relative overflow-hidden h-full border-gray-200 dark:border-gray-800 hover:border-blue-500/50 dark:hover:border-blue-500/50 transition-all duration-300 p-5 bg-white/80 dark:bg-gray-950/80 backdrop-blur-sm shadow-sm hover:shadow-xl hover:shadow-blue-500/10 dark:hover:shadow-blue-500/10">
         <div className="flex items-start justify-between mb-4">
-          <div className={`w-12 h-12 rounded-2xl ${avatarColor} flex flex-shrink-0 items-center justify-center text-white font-black text-xl shadow-lg shadow-inherit/20`}>
+          <div
+            className={`w-12 h-12 rounded-2xl ${avatarColor} flex flex-shrink-0 items-center justify-center text-white font-black text-xl shadow-lg shadow-inherit/20`}
+          >
             {firstLetter}
           </div>
           <div className="flex items-center gap-2">
-
             <button
               onClick={(e) => {
                 e.stopPropagation();
@@ -48,7 +53,7 @@ export const StockCard: React.FC<StockCardProps> = ({ ticker, onClick }) => {
               className="p-1.5 rounded-lg hover:bg-black/5 dark:hover:bg-white/5 transition-colors"
             >
               <Bookmark
-                className={`h-5 w-5 transition-all ${bookmarked ? 'fill-blue-500 text-blue-500 scale-110' : 'text-gray-400 hover:text-gray-600 dark:hover:text-gray-300'}`}
+                className={`h-5 w-5 transition-all ${bookmarked ? "fill-blue-500 text-blue-500 scale-110" : "text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"}`}
               />
             </button>
           </div>

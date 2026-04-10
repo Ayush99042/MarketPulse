@@ -176,10 +176,11 @@ export const Dashboard: React.FC = () => {
                 <button
                   key={tab}
                   onClick={() => setMoverTab(tab as any)}
-                  className={`px-4 py-2 rounded-full text-xs font-bold tracking-wide capitalize transition-colors ${moverTab === tab
+                  className={`px-4 py-2 rounded-full text-xs font-bold tracking-wide capitalize transition-colors ${
+                    moverTab === tab
                       ? "bg-gray-900 text-white dark:bg-white dark:text-gray-900"
                       : "bg-transparent text-gray-500 hover:bg-gray-100 dark:hover:bg-white/5"
-                    }`}
+                  }`}
                 >
                   {tab}
                 </button>
@@ -194,7 +195,7 @@ export const Dashboard: React.FC = () => {
             <Reorder.Group
               axis="y"
               values={topMovers.map((t) => t.symbol)}
-              onReorder={() => { }}
+              onReorder={() => {}}
               className="flex flex-col"
             >
               <AnimatePresence mode="popLayout">
@@ -206,7 +207,7 @@ export const Dashboard: React.FC = () => {
                     <WatchlistRow
                       ticker={ticker}
                       isEditing={false}
-                      onRemove={() => { }}
+                      onRemove={() => {}}
                       onClick={() => navigate(`/detail/${ticker.symbol}`)}
                     />
                   </div>
