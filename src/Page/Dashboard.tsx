@@ -125,7 +125,8 @@ export const Dashboard: React.FC = () => {
             </h2>
             <div className="flex gap-4 overflow-x-auto pb-4 pt-2 scrollbar-hide">
               {recentlyViewed.map((ticker) => {
-                const isPos = ticker.symbol.charCodeAt(0) % 2 === 0;
+                const stats = getDailyStats(ticker.symbol);
+                const isPos = stats.pChange >= 0;
                 return (
                   <div
                     key={ticker.symbol}
@@ -141,8 +142,8 @@ export const Dashboard: React.FC = () => {
                     <span
                       className={`text-[10px] font-bold ${isPos ? "text-emerald-500" : "text-rose-500"}`}
                     >
-                      {isPos ? "+" : "-"}
-                      {(Math.random() * 5).toFixed(2)}%
+                      {isPos ? "+" : ""}
+                      {stats.pChange.toFixed(2)}%
                     </span>
                   </div>
                 );
