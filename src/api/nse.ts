@@ -54,7 +54,7 @@ export interface NSESockEntry {
 export const fetchNSEQuote = async (symbol: string): Promise<NSESockEntry> => {
   try {
     const response = await axios.get(
-      `/api-nse/api/quote-equity?symbol=${symbol}`,
+      `/api/nse?symbol=${symbol}`,
     );
     return response.data;
   } catch (error) {

@@ -5,10 +5,10 @@ export default defineConfig({
   plugins: [react()],
   server: {
     proxy: {
-      '/api-nse': {
+      '/api/nse': {
         target: 'https://www.nseindia.com',
         changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/api-nse/, ''),
+        rewrite: (path) => path.replace(/^\/api\/nse/, '/api/quote-equity'),
         headers: {
           'Referer': 'https://www.nseindia.com/',
           'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36',
@@ -16,10 +16,10 @@ export default defineConfig({
           'Accept-Language': 'en-US,en;q=0.9',
         }
       },
-      '/api': {
-        target: 'http://api.marketstack.com',
+      '/api/marketstack': {
+        target: 'https://api.marketstack.com',
         changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/api/, ''),
+        rewrite: (path) => path.replace(/^\/api\/marketstack/, ''),
       },
     },
   },
