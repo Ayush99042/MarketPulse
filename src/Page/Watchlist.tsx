@@ -141,56 +141,66 @@ export const Watchlist: React.FC = () => {
               </div>
             </div>
 
-            <div className="flex items-center justify-between px-6 py-4 text-[10px] uppercase tracking-[0.2em] font-black text-gray-400 dark:text-gray-500 border-b border-gray-200 dark:border-white/10 mb-2 sticky top-[4.5rem] z-20 bg-gray-50/90 dark:bg-gray-950/90 backdrop-blur-2xl">
-              <div className="w-[35%] sm:w-[30%] lg:w-[25%] flex items-center justify-between">
-                <span>Company ({displayedSymbols.length})</span>
-              </div>
-              <div className="w-[15%] hidden md:flex items-center justify-center">
-                Trend
-              </div>
-              <div className="w-[20%] md:w-[15%] text-right cursor-pointer hover:text-gray-900 dark:hover:text-white transition-colors">
-                Mkt price{" "}
-              </div>
-              <div className="w-[25%] md:w-[20%] text-right cursor-pointer hover:text-gray-900 dark:hover:text-white transition-colors">
-                1D change{" "}
-              </div>
-              <div className="w-[15%] hidden lg:block text-right cursor-pointer hover:text-gray-900 dark:hover:text-white transition-colors">
-                1D vol{" "}
-              </div>
-              <div className="w-[10%] hidden xl:block text-right">52W perf</div>
-              {isEditing && <div className="w-10 opacity-0">.</div>}
-            </div>
+            <div className="relative">
+              <div className="overflow-x-auto pb-4 scrollbar-hide -mx-4 px-4 sm:mx-0 sm:px-0">
+                <div className="min-w-[800px] lg:min-w-full">
+                  <div className="flex items-center justify-between px-6 py-4 text-[10px] uppercase tracking-[0.2em] font-black text-gray-400 dark:text-gray-500 border-b border-gray-200 dark:border-white/10 mb-2 sticky top-0 z-20 bg-gray-50/90 dark:bg-gray-950/90 backdrop-blur-2xl">
+                    <div className="w-[35%] sm:w-[30%] lg:w-[25%] flex items-center justify-between">
+                      <span>Company ({displayedSymbols.length})</span>
+                    </div>
+                    <div className="w-[15%] hidden md:flex items-center justify-center">
+                      Trend
+                    </div>
+                    <div className="w-[20%] md:w-[15%] text-right cursor-pointer hover:text-gray-900 dark:hover:text-white transition-colors">
+                      Mkt price{" "}
+                    </div>
+                    <div className="w-[25%] md:w-[20%] text-right cursor-pointer hover:text-gray-900 dark:hover:text-white transition-colors">
+                      1D change{" "}
+                    </div>
+                    <div className="w-[15%] hidden lg:block text-right cursor-pointer hover:text-gray-900 dark:hover:text-white transition-colors">
+                      1D vol{" "}
+                    </div>
+                    <div className="w-[10%] hidden xl:block text-right">
+                      52W perf
+                    </div>
+                    {isEditing && <div className="w-10 opacity-0">.</div>}
+                  </div>
 
-            {displayedSymbols.length === 0 ? (
-              <div className="text-center py-10 font-bold text-gray-500">
-                No stocks match your search.
+                  {displayedSymbols.length === 0 ? (
+                    <div className="text-center py-10 font-bold text-gray-500">
+                      No stocks match your search.
+                    </div>
+                  ) : (
+                    <Reorder.Group
+                      axis="y"
+                      values={searchTerm ? displayedSymbols : watchlist}
+                      onReorder={searchTerm ? () => {} : setWatchlist}
+                      className="flex flex-col w-full"
+                    >
+                      <AnimatePresence initial={false}>
+                        {displayedSymbols.map((symbol) => {
+                          const ticker = data?.find((t) => t.symbol === symbol);
+                          if (!ticker) return null;
+                          return (
+                            <WatchlistRow
+                              key={ticker.symbol}
+                              ticker={ticker}
+                              isEditing={isEditing}
+                              onClick={() =>
+                                !isEditing &&
+                                navigate(`/detail/${ticker.symbol}`)
+                              }
+                              onRemove={() => toggleWatchlist(ticker.symbol)}
+                            />
+                          );
+                        })}
+                      </AnimatePresence>
+                    </Reorder.Group>
+                  )}
+                </div>
               </div>
-            ) : (
-              <Reorder.Group
-                axis="y"
-                values={searchTerm ? displayedSymbols : watchlist}
-                onReorder={searchTerm ? () => {} : setWatchlist}
-                className="flex flex-col w-full"
-              >
-                <AnimatePresence initial={false}>
-                  {displayedSymbols.map((symbol) => {
-                    const ticker = data?.find((t) => t.symbol === symbol);
-                    if (!ticker) return null;
-                    return (
-                      <WatchlistRow
-                        key={ticker.symbol}
-                        ticker={ticker}
-                        isEditing={isEditing}
-                        onClick={() =>
-                          !isEditing && navigate(`/detail/${ticker.symbol}`)
-                        }
-                        onRemove={() => toggleWatchlist(ticker.symbol)}
-                      />
-                    );
-                  })}
-                </AnimatePresence>
-              </Reorder.Group>
-            )}
+              <div className="absolute right-0 top-0 bottom-0 w-8 pointer-events-none bg-gradient-to-l from-gray-50 dark:from-gray-950 to-transparent opacity-0 lg:hidden group-hover:opacity-100 transition-opacity" />
+            </div>
           </div>
         )}
       </div>
