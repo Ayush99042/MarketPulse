@@ -11,7 +11,7 @@ export interface LivePriceResult {
   error: string | null;
 }
 
-export const useLivePrice = (symbol: string | undefined): LivePriceResult => {
+export const useLivePrice = (symbol: string | undefined, intervalMs: number = 1500): LivePriceResult => {
   const [data, setData] = useState<NSESockEntry | null>(null);
   const [price, setPrice] = useState<number | null>(null);
   const [prevPrice, setPrevPrice] = useState<number | null>(null);
@@ -75,15 +75,15 @@ export const useLivePrice = (symbol: string | undefined): LivePriceResult => {
 
 
     let interval: any;
-    if (checkMarketOpen()) {
-      interval = setInterval(fetchPrice, 3500);
+    if (checkMarketOpen() && intervalMs > 0) {
+      interval = setInterval(fetchPrice, intervalMs);
     }
 
     return () => {
       isMounted = false;
       if (interval) clearInterval(interval);
     };
-  }, [symbol]);
+  }, [symbol, intervalMs]);
 
   return { data, price, prevPrice, direction, loading, error };
 };

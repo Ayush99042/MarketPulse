@@ -1,8 +1,9 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { TrendingUp, ArrowRight } from 'lucide-react';
+import { TrendingUp, ArrowRight, Bookmark } from 'lucide-react';
 import { Card } from './Card';
 import type { Ticker } from '../api/queries';
+import { useWatchlist } from '../hooks/useWatchlist';
 
 interface StockCardProps {
   ticker: Ticker;
@@ -10,6 +11,9 @@ interface StockCardProps {
 }
 
 export const StockCard: React.FC<StockCardProps> = ({ ticker, onClick }) => {
+  const { toggleWatchlist, isWatchlisted } = useWatchlist();
+  const bookmarked = isWatchlisted(ticker.symbol);
+
   const firstLetter = ticker.name.charAt(0).toUpperCase();
   const colors = [
     'bg-blue-500', 'bg-emerald-500', 'bg-indigo-500',
@@ -31,12 +35,22 @@ export const StockCard: React.FC<StockCardProps> = ({ ticker, onClick }) => {
     >
       <Card className="relative overflow-hidden h-full border-gray-200 dark:border-gray-800 hover:border-blue-500/50 dark:hover:border-blue-500/50 transition-all duration-300 p-5 bg-white/80 dark:bg-gray-950/80 backdrop-blur-sm shadow-sm hover:shadow-xl hover:shadow-blue-500/10 dark:hover:shadow-blue-500/10">
         <div className="flex items-start justify-between mb-4">
-          <div className={`w-12 h-12 rounded-2xl ${avatarColor} flex items-center justify-center text-white font-black text-xl shadow-lg shadow-inherit/20`}>
+          <div className={`w-12 h-12 rounded-2xl ${avatarColor} flex flex-shrink-0 items-center justify-center text-white font-black text-xl shadow-lg shadow-inherit/20`}>
             {firstLetter}
           </div>
-          <div className="flex items-center gap-1.5 px-2 py-1 rounded-md bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 text-[10px] font-bold uppercase tracking-wider border border-blue-100 dark:border-blue-800/50">
-            <TrendingUp className="h-3 w-3" />
-            Live tracking
+          <div className="flex items-center gap-2">
+
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                toggleWatchlist(ticker.symbol);
+              }}
+              className="p-1.5 rounded-lg hover:bg-black/5 dark:hover:bg-white/5 transition-colors"
+            >
+              <Bookmark
+                className={`h-5 w-5 transition-all ${bookmarked ? 'fill-blue-500 text-blue-500 scale-110' : 'text-gray-400 hover:text-gray-600 dark:hover:text-gray-300'}`}
+              />
+            </button>
           </div>
         </div>
 
@@ -44,7 +58,7 @@ export const StockCard: React.FC<StockCardProps> = ({ ticker, onClick }) => {
           <h3 className="font-bold text-gray-900 dark:text-gray-100 text-lg leading-tight group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors line-clamp-2 min-h-[3rem]">
             {ticker.name}
           </h3>
-          <p className="text-sm font-medium text-gray-500 dark:text-gray-400 font-mono tracking-tighter">
+          <p className="text-sm font-medium text-gray-500 dark:text-gray-400 font-mono er">
             {ticker.symbol}
           </p>
         </div>
