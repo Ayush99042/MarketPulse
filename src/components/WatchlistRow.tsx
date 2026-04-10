@@ -149,7 +149,7 @@ export const WatchlistRow: React.FC<WatchlistRowProps> = ({
         className="w-[20%] md:w-[15%] text-right cursor-pointer"
         onClick={onClick}
       >
-        <div className="text-[13px] font-black text-gray-900 dark:text-gray-100 font-mono er">
+        <div className="text-[13px] font-black text-gray-900 dark:text-gray-100 font-mono">
           {livePrice
             ? `₹${livePrice.toLocaleString("en-IN", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`
             : "-"}
@@ -157,7 +157,7 @@ export const WatchlistRow: React.FC<WatchlistRowProps> = ({
       </div>
 
       <div
-        className="w-[25%] md:w-[20%] text-right font-mono er cursor-pointer"
+        className="w-[25%] md:w-[20%] text-right font-mono cursor-pointer"
         onClick={onClick}
       >
         {liveData ? (

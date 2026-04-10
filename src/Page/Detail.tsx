@@ -256,8 +256,21 @@ export const Detail: React.FC = () => {
 
   if (isLoading) {
     return (
-      <div className="flex justify-center items-center h-screen">
-        <Activity className="h-10 w-10 animate-spin text-blue-500" />
+      <div className="flex justify-center items-center h-screen bg-black">
+        <div className="relative w-40 h-20">
+          <div className="absolute bottom-0 left-0 w-full h-full flex items-end gap-1">
+            {[70, 50, 40, 30, 60, 50, 60, 70].map((h, i) => (
+              <div
+                key={i}
+                className="w-2 bg-green-400 animate-bounce"
+                style={{
+                  height: `${h}%`,
+                  animationDelay: `${i * 0.1}s`,
+                }}
+              ></div>
+            ))}
+          </div>
+        </div>
       </div>
     );
   }

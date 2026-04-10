@@ -63,7 +63,7 @@ export const StockCard: React.FC<StockCardProps> = ({ ticker, onClick }) => {
           <h3 className="font-bold text-gray-900 dark:text-gray-100 text-lg leading-tight group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors line-clamp-2 min-h-[3rem]">
             {ticker.name}
           </h3>
-          <p className="text-sm font-medium text-gray-500 dark:text-gray-400 font-mono er">
+          <p className="text-sm font-medium text-gray-500 dark:text-gray-400 font-mono">
             {ticker.symbol}
           </p>
         </div>
