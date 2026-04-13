@@ -327,17 +327,17 @@ export const Detail: React.FC = () => {
                 <span className="text-sm font-black text-blue-600 dark:text-blue-400 bg-blue-500/10 px-3 py-1 rounded-lg uppercase tracking-[0.2em]">
                   {symbol}
                 </span>
-                (isMarketOpen ? (
-                <div className="flex items-center gap-2 px-4 py-1.5 rounded-full glass-liquid text-emerald-400 text-[10px] font-black uppercase tracking-[0.2em] border-emerald-500/20 shadow-lg shadow-emerald-500/10">
-                  <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-                  Live Flux
-                </div>
+                {isMarketOpen ? (
+                  <div className="flex items-center gap-2 px-4 py-1.5 rounded-full glass-liquid text-emerald-400 text-[10px] font-black uppercase tracking-[0.2em] border-emerald-500/20 shadow-lg shadow-emerald-500/10">
+                    <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+                    Live
+                  </div>
                 ) : (
-                <div className="flex items-center gap-2 px-4 py-1.5 rounded-full glass-liquid text-rose-400 text-[10px] font-black uppercase tracking-[0.2em] border-rose-500/20">
-                  <div className="w-2 h-2 rounded-full bg-rose-500" />
-                  Closed
-                </div>
-                ))
+                  <div className="flex items-center gap-2 px-4 py-1.5 rounded-full glass-liquid text-rose-400 text-[10px] font-black uppercase tracking-[0.2em] border-rose-500/20">
+                    <div className="w-2 h-2 rounded-full bg-rose-500" />
+                    Closed
+                  </div>
+                )}
               </div>
             </div>
           </div>
