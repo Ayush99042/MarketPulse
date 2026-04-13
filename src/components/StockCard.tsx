@@ -1,7 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { ArrowRight, Bookmark } from "lucide-react";
-import { Card } from "./Card";
 import type { Ticker } from "../api/queries";
 import { useWatchlist } from "../hooks/useWatchlist";
 
@@ -40,7 +39,6 @@ export const StockCard: React.FC<StockCardProps> = ({ ticker, onClick }) => {
       onClick={onClick}
     >
       <div className="relative overflow-hidden h-full glass-liquid rounded-[2.5rem] p-6 transition-all duration-500 hover:shadow-2xl hover:shadow-blue-500/20">
-        {/* Dynamic Glow Background */}
         <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-0" />
         <div className="relative z-10 flex items-start justify-between mb-4">
           <div

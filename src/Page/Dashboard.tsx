@@ -64,9 +64,9 @@ export const Dashboard: React.FC = () => {
     );
   }
 
-  const recentlyViewed = data.slice(50, 58);
-  const mostBought = data.slice(10, 14);
-  const intradayStocks = data.slice(40, 44);
+  const recentlyViewed = data?.slice(50, 58) || [];
+  const mostBought = data?.slice(10, 14) || [];
+  const intradayStocks = data?.slice(40, 44) || [];
 
   return (
     <motion.div
