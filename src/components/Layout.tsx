@@ -211,11 +211,21 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({
                         {[
                           { icon: ClipboardList, label: "All Orders" },
                           { icon: Building2, label: "Bank Details" },
-                          { icon: Headset, label: "24 x 7 Customer Support" },
+                          {
+                            icon: Headset,
+                            label: "24 x 7 Customer Support",
+                            path: "/support",
+                          },
                           { icon: FileText, label: "Reports" },
                         ].map((item) => (
                           <button
                             key={item.label}
+                            onClick={() => {
+                              if (item.path) {
+                                navigate(item.path);
+                                setIsMenuOpen(false);
+                              }
+                            }}
                             className="w-full flex items-center justify-between p-3.5 px-4 rounded-2xl hover:bg-black/5 dark:hover:bg-white/5 transition-all group text-left"
                           >
                             <div className="flex items-center gap-4">

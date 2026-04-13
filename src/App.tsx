@@ -4,6 +4,7 @@ import { Dashboard } from "./Page/Dashboard";
 import { Detail } from "./Page/Detail";
 import { Listing } from "./Page/Listing";
 import { Watchlist } from "./Page/Watchlist";
+import { Support } from "./Page/Support";
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
         <Route path="/stocks" element={<Listing />} />
         <Route path="/watchlist" element={<Watchlist />} />
         <Route path="/detail/:symbol" element={<Detail />} />
+        <Route path="/support" element={<Support />} />
       </Routes>
     </Layout>
   );
