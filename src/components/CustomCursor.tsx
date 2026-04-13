@@ -1,12 +1,12 @@
 import { useEffect, useRef, useState } from "react";
 
 export const CustomCursor = () => {
-  const cursorRef = useRef(null);
-  const glowRef = useRef(null);
+  const cursorRef = useRef<HTMLDivElement | null>(null);
+  const glowRef = useRef<HTMLDivElement | null>(null);
   const [hidden, setHidden] = useState(false);
 
   useEffect(() => {
-    const move = (e) => {
+    const move = (e: MouseEvent) => {
       const x = e.clientX;
       const y = e.clientY;
 
@@ -21,8 +21,8 @@ export const CustomCursor = () => {
       }
     };
 
-    const handleMouseOver = (e) => {
-      const target = e.target;
+    const handleMouseOver = (e: MouseEvent) => {
+      const target = e.target as HTMLElement;
 
       if (
         target.closest("button") ||
@@ -48,6 +48,7 @@ export const CustomCursor = () => {
   return (
     <>
       <style>{`body { cursor: none; }`}</style>
+
       <div
         ref={cursorRef}
         className={`fixed top-0 left-0 w-5 h-5 rounded-full pointer-events-none z-50
@@ -55,6 +56,7 @@ export const CustomCursor = () => {
                     ${hidden ? "opacity-0" : "opacity-100"}`}
         style={{ willChange: "transform" }}
       />
+
       <div
         ref={glowRef}
         className={`fixed top-0 left-0 w-20 h-20 rounded-full pointer-events-none z-40
