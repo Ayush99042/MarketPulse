@@ -290,31 +290,31 @@ export const Dashboard: React.FC = () => {
                     Current
                   </span>
                 </div>
-                <div className="text-5xl font-black text-gray-900 dark:text-white font-mono mb-10 tracking-tighter">
-                  ₹8,086.96
+                <div className="text-4xl font-black text-gray-900 dark:text-white font-mono mb-10 tracking-tighter">
+                  ₹6,11,000.00
                 </div>
                 <div className="flex items-center justify-between py-4 border-t border-gray-100 dark:border-white/5">
                   <span className="text-sm font-bold text-gray-500 dark:text-white/40">
                     1D returns
                   </span>
-                  <span className="font-black text-emerald-500 font-mono text-lg">
-                    +₹42.20 (0.52%)
+                  <span className="font-black text-emerald-500 font-mono ">
+                    +₹11,000.00(2.11%)
                   </span>
                 </div>
                 <div className="flex items-center justify-between py-4 border-t border-b border-gray-100 dark:border-white/5 mb-4">
                   <span className="text-sm font-bold text-gray-500 dark:text-white/40">
                     Total returns
                   </span>
-                  <span className="font-black text-emerald-500 font-mono text-lg">
-                    +₹86.96 (1.08%)
+                  <span className="font-black text-emerald-500 font-mono">
+                    +₹91,000.00(17.5%)
                   </span>
                 </div>
                 <div className="flex items-center justify-between pt-2">
                   <span className="text-sm font-bold text-gray-500 dark:text-white/40">
                     Invested
                   </span>
-                  <span className="font-black text-gray-900 dark:text-white font-mono text-lg">
-                    ₹8,000.00
+                  <span className="font-black text-gray-900 dark:text-white font-mono">
+                    ₹5,20,000.00
                   </span>
                 </div>
               </div>
