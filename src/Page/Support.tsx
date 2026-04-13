@@ -100,7 +100,7 @@ export const Support: React.FC = () => {
           </button>
           <div>
             <h1 className="text-4xl font-black text-gray-900 dark:text-white tracking-tight">
-              24/7 Concierge Support
+              24/7 Support
             </h1>
             <p className="text-gray-500 font-bold flex items-center gap-2">
               <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
