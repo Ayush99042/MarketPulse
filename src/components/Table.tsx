@@ -18,7 +18,7 @@ export const TableHeader: React.FC<{
   className?: string;
 }> = ({ children, className = "" }) => (
   <thead
-    className={`bg-gray-50 text-xs uppercase text-gray-700 dark:bg-gray-800 dark:text-gray-400 sticky top-0 z-10 shadow-sm border-b border-gray-200 dark:border-gray-700 ${className}`}
+    className={`glass-liquid text-[10px] uppercase tracking-widest text-gray-500/60 sticky top-0 z-10 border-b border-white/5 ${className}`}
   >
     <tr>{children}</tr>
   </thead>
@@ -39,7 +39,7 @@ export const TableBody: React.FC<{
   className?: string;
 }> = ({ children, className = "" }) => (
   <tbody
-    className={`divide-y divide-gray-200 dark:divide-gray-800 ${className}`}
+    className={`divide-y divide-white/5 ${className}`}
   >
     {children}
   </tbody>
@@ -53,7 +53,7 @@ export const Tr: React.FC<React.HTMLAttributes<HTMLTableRowElement>> = ({
 }) => (
   <tr
     onClick={onClick}
-    className={`hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors ${onClick ? "cursor-pointer" : ""} ${className}`}
+    className={`hover:bg-white/5 transition-colors ${onClick ? "cursor-pointer" : ""} ${className}`}
     {...props}
   >
     {children}

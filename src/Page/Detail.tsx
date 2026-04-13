@@ -24,6 +24,7 @@ import { GlassBackground } from "../components/GlassBackground";
 import { Table, TableBody, TableHeader, Td, Th, Tr } from "../components/Table";
 import { useLivePrice } from "../hooks/useLivePrice";
 import { useWatchlist } from "../hooks/useWatchlist";
+import { motion } from "framer-motion";
 
 type Duration = "1D" | "1W" | "1M" | "3M" | "6M" | "1Y";
 
@@ -299,9 +300,11 @@ export const Detail: React.FC = () => {
   const latest = data?.[0];
 
   return (
-    <div className="relative min-h-screen pb-20">
-      <GlassBackground />
-
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      className="relative min-h-screen pb-32"
+    >
       <div className="container mx-auto px-4 lg:px-8 pt-2 space-y-2 animate-in fade-in slide-in-from-bottom-6 duration-1000 ease-out">
         <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-2 mb-5">
           <div className="space-y-0.5">
@@ -324,19 +327,17 @@ export const Detail: React.FC = () => {
                 <span className="text-sm font-black text-blue-600 dark:text-blue-400 bg-blue-500/10 px-3 py-1 rounded-lg uppercase tracking-[0.2em]">
                   {symbol}
                 </span>
-
-                {livePrice &&
-                  (isMarketOpen ? (
-                    <div className="flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 text-xs font-black uppercase tracking-[0.15em] border border-emerald-500/20 shadow-lg shadow-emerald-500/5">
-                      <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-                      Live
-                    </div>
-                  ) : (
-                    <div className="flex items-center gap-2 px-4 py-1.5 rounded-full bg-red-500/10 text-red-600 dark:text-red-400 text-xs font-black uppercase tracking-[0.15em] border border-red-500/20">
-                      <div className="w-2 h-2 rounded-full bg-red-500" />
-                      Market Closed
-                    </div>
-                  ))}
+                (isMarketOpen ? (
+                <div className="flex items-center gap-2 px-4 py-1.5 rounded-full glass-liquid text-emerald-400 text-[10px] font-black uppercase tracking-[0.2em] border-emerald-500/20 shadow-lg shadow-emerald-500/10">
+                  <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+                  Live Flux
+                </div>
+                ) : (
+                <div className="flex items-center gap-2 px-4 py-1.5 rounded-full glass-liquid text-rose-400 text-[10px] font-black uppercase tracking-[0.2em] border-rose-500/20">
+                  <div className="w-2 h-2 rounded-full bg-rose-500" />
+                  Closed
+                </div>
+                ))
               </div>
             </div>
           </div>
@@ -380,15 +381,17 @@ export const Detail: React.FC = () => {
               )}
             </div>
 
-            <button
+            <motion.button
+              whileHover={{ scale: 1.1, rotate: 5 }}
+              whileTap={{ scale: 0.9 }}
               onClick={() => toggleWatchlist(symbol || "")}
-              className={`p-3.5 mt-[-4px] rounded-[1.25rem] flex items-center justify-center transition-all duration-300 shadow-md ${bookmarked ? "bg-blue-600 text-white shadow-[0_0_20px_rgba(37,99,235,0.4)] scale-105" : "bg-white/60 dark:bg-white/5 border border-black/5 dark:border-white/10 text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-white dark:hover:bg-white/10"}`}
+              className={`p-4 mt-[-4px] rounded-[1.5rem] flex items-center justify-center transition-all duration-300 shadow-xl ${bookmarked ? "bg-blue-600 text-white shadow-blue-500/40" : "glass-liquid text-gray-400 hover:text-white"}`}
               title={bookmarked ? "Remove from Watchlist" : "Add to Watchlist"}
             >
               <Bookmark
-                className={`h-6 w-6 lg:h-7 lg:w-7 transition-transform ${bookmarked ? "fill-white" : ""}`}
+                className={`h-7 w-7 transition-transform ${bookmarked ? "fill-white" : ""}`}
               />
-            </button>
+            </motion.button>
           </div>
         </div>
 
@@ -426,7 +429,7 @@ export const Detail: React.FC = () => {
             </div>
           </div>
 
-          <div className="h-[425px] w-full mt-0">
+          <div className="h-[450px] w-full mt-4">
             <ResponsiveContainer width="100%" height="100%">
               <AreaChart
                 data={chartData}
@@ -834,6 +837,6 @@ export const Detail: React.FC = () => {
           </div>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };

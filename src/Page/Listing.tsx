@@ -1,4 +1,4 @@
-import { AnimatePresence } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import { Search, X } from "lucide-react";
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -70,8 +70,12 @@ export const Listing: React.FC = () => {
   }
 
   return (
-    <div className="flex flex-col space-y-8 animate-in fade-in duration-700">
-      <div className="flex justify-end pb-2">
+    <motion.div
+      initial={{ opacity: 0, scale: 0.98 }}
+      animate={{ opacity: 1, scale: 1 }}
+      className="flex flex-col space-y-8 animate-in fade-in duration-700 pb-20"
+    >
+      <div className="flex justify-end pb-4">
         <div className="relative group max-w-sm w-full">
           <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400 group-focus-within:text-blue-500 transition-colors" />
           <input
@@ -82,7 +86,7 @@ export const Listing: React.FC = () => {
               setSearchTerm(e.target.value);
               setDisplayCount(12);
             }}
-            className="w-full pl-12 pr-12 py-3 bg-black/5 dark:bg-gray-900/50 border border-black/10 dark:border-white/10 rounded-2xl shadow-sm outline-none focus:ring-1 focus:border-blue-500 transition-colors duration-300 text-sm font-bold text-gray-900 dark:text-white placeholder-gray-500"
+            className="w-full pl-12 pr-12 py-3.5 glass-liquid rounded-[1.5rem] shadow-xl outline-none focus:ring-2 focus:ring-blue-500/50 transition-all duration-300 text-sm font-black text-gray-900 dark:text-white placeholder-gray-500/50"
           />
           {searchTerm && (
             <button
@@ -152,6 +156,6 @@ export const Listing: React.FC = () => {
           </div>
         )}
       </div>
-    </div>
+    </motion.div>
   );
 };

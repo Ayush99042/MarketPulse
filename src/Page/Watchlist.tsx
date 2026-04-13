@@ -57,22 +57,27 @@ export const Watchlist: React.FC = () => {
   }
 
   return (
-    <div className="flex flex-col space-y-8 animate-in fade-in duration-700 pb-20">
+    <motion.div 
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6, type: "spring", bounce: 0.3 }}
+      className="flex flex-col space-y-8 animate-in fade-in duration-700 pb-32"
+    >
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6 pb-2">
-        <h1 className="text-4xl font-black  text-gray-900 dark:text-white flex items-center gap-4 mt-2">
-          <div className="p-3 bg-blue-500/10 rounded-2xl text-blue-500 shadow-sm">
+        <h1 className="text-4xl font-black text-gray-900 dark:text-white flex items-center gap-4 mt-2">
+          <div className="p-4 glass-liquid rounded-[1.75rem] text-blue-500 shadow-xl">
             <Bookmark className="h-8 w-8 fill-blue-500" />
           </div>
-          My <span className="text-blue-600 italic ml-2">Watchlist</span>
+          My <span className="bg-gradient-to-r from-blue-600 to-blue-400 bg-clip-text text-transparent italic ml-2">Watchlist</span>
         </h1>
 
         <Button
           variant="ghost"
           onClick={() => navigate("/")}
-          className="px-4 py-2 mt-2 sm:mt-0 bg-white/50 dark:bg-gray-900/40 border border-black/5 dark:border-white/10 rounded-xl hover:bg-black/5 dark:hover:bg-white/10 text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-all font-bold"
+          className="px-6 py-2.5 mt-2 sm:mt-0 glass-liquid-alt rounded-2xl hover:bg-white/10 text-gray-600 dark:text-gray-400 hover:text-blue-500 transition-all font-black border-white/10"
         >
           <ArrowLeft className="mr-2 h-4 w-4" />
-          <span className="text-xs uppercase tracking-[0.1em]">
+          <span className="text-[10px] uppercase tracking-[0.2em]">
             Back to Market
           </span>
         </Button>
@@ -108,13 +113,13 @@ export const Watchlist: React.FC = () => {
           <div className="flex flex-col gap-4">
             <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 pb-2">
               <div className="relative group max-w-md w-full">
-                <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400 transition-colors group-focus-within:text-blue-500" />
+                <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-500/60 transition-colors group-focus-within:text-blue-500" />
                 <input
                   type="text"
                   placeholder="Search your watchlist"
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className="w-full pl-12 pr-4 py-3 bg-black/5 dark:bg-gray-900/50 border border-black/10 dark:border-white/10 rounded-2xl outline-none focus:ring-1 focus:border-blue-500 transition-all text-sm font-bold text-gray-900 dark:text-gray-100 placeholder-gray-500"
+                  className="w-full pl-12 pr-6 py-3.5 glass-liquid rounded-2xl outline-none focus:ring-2 focus:ring-blue-500/50 transition-all text-sm font-black text-gray-900 dark:text-gray-100 placeholder-gray-500/40"
                 />
               </div>
 
@@ -144,7 +149,7 @@ export const Watchlist: React.FC = () => {
             <div className="relative">
               <div className="overflow-x-auto pb-4 scrollbar-hide -mx-4 px-4 sm:mx-0 sm:px-0">
                 <div className="min-w-[800px] lg:min-w-full">
-                  <div className="flex items-center justify-between px-6 py-4 text-[10px] uppercase tracking-[0.2em] font-black text-gray-400 dark:text-gray-500 border-b border-gray-200 dark:border-white/10 mb-2 sticky top-0 z-20 bg-gray-50/90 dark:bg-gray-950/90 backdrop-blur-2xl">
+                  <div className="flex items-center justify-between px-6 py-5 text-[10px] uppercase tracking-[0.25em] font-black text-white/30 border-b border-white/5 mb-4 sticky top-0 z-20 glass-liquid">
                     <div className="w-[35%] sm:w-[30%] lg:w-[25%] flex items-center justify-between">
                       <span>Company ({displayedSymbols.length})</span>
                     </div>
@@ -204,6 +209,6 @@ export const Watchlist: React.FC = () => {
           </div>
         )}
       </div>
-    </div>
+    </motion.div>
   );
 };

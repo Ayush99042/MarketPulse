@@ -1,3 +1,57 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  :root {
+    --glass-bg: hsla(0, 0%, 100%, 0.4);
+    --glass-border: hsla(0, 0%, 100%, 0.2);
+    --glass-highlight: hsla(0, 0%, 100%, 0.3);
+    --glass-shadow: hsla(0, 0%, 0%, 0.05);
+    
+    --liquid-primary: #3b82f6;
+    --liquid-secondary: #10b981;
+  }
+
+  .dark {
+    --glass-bg: hsla(240, 10%, 4%, 0.4);
+    --glass-border: hsla(0, 0%, 100%, 0.08);
+    --glass-highlight: hsla(0, 0%, 100%, 0.05);
+    --glass-shadow: hsla(0, 0%, 0%, 0.4);
+  }
+}
+
+@layer components {
+  .glass-liquid {
+    @apply backdrop-blur-3xl saturate-[1.8];
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    box-shadow: 0 8px 32px 0 var(--glass-shadow);
+  }
+
+  .glass-liquid-alt {
+    @apply backdrop-blur-2xl;
+    background: linear-gradient(
+      135deg,
+      var(--glass-highlight) 0%,
+      transparent 100%
+    );
+    border: 1px solid var(--glass-border);
+  }
+
+  .liquid-text-gradient {
+    @apply bg-clip-text text-transparent bg-gradient-to-br from-white to-white/40;
+  }
+  
+  .dark .liquid-text-gradient {
+    @apply from-white via-white to-gray-500;
+  }
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}

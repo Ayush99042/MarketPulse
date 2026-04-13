@@ -31,14 +31,18 @@ export const StockCard: React.FC<StockCardProps> = ({ ticker, onClick }) => {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       whileHover={{
-        y: -5,
-        transition: { duration: 0.2 },
+        y: -8,
+        scale: 1.02,
+        transition: { type: "spring", stiffness: 400, damping: 25 },
       }}
-      className="group cursor-pointer"
+      whileTap={{ scale: 0.98 }}
+      className="group cursor-pointer h-full"
       onClick={onClick}
     >
-      <Card className="relative overflow-hidden h-full border-gray-200 dark:border-gray-800 hover:border-blue-500/50 dark:hover:border-blue-500/50 transition-all duration-300 p-5 bg-white/80 dark:bg-gray-950/80 backdrop-blur-sm shadow-sm hover:shadow-xl hover:shadow-blue-500/10 dark:hover:shadow-blue-500/10">
-        <div className="flex items-start justify-between mb-4">
+      <div className="relative overflow-hidden h-full glass-liquid rounded-[2.5rem] p-6 transition-all duration-500 hover:shadow-2xl hover:shadow-blue-500/20">
+        {/* Dynamic Glow Background */}
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-0" />
+        <div className="relative z-10 flex items-start justify-between mb-4">
           <div
             className={`w-12 h-12 rounded-2xl ${avatarColor} flex flex-shrink-0 items-center justify-center text-white font-black text-xl shadow-lg shadow-inherit/20`}
           >
@@ -76,8 +80,8 @@ export const StockCard: React.FC<StockCardProps> = ({ ticker, onClick }) => {
             <ArrowRight className="h-4 w-4" />
           </div>
         </div>
-        <div className="absolute -bottom-8 -right-8 w-24 h-24 bg-blue-500/5 blur-3xl rounded-full" />
-      </Card>
+        <div className="absolute -bottom-8 -right-8 w-24 h-24 bg-blue-500/10 blur-3xl rounded-full group-hover:scale-150 transition-transform duration-700" />
+      </div>
     </motion.div>
   );
 };

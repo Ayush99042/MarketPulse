@@ -115,7 +115,7 @@ export const WatchlistRow: React.FC<WatchlistRowProps> = ({
         zIndex: 50,
         cursor: "grabbing",
       }}
-      className={`group relative flex items-center justify-between px-6 py-4 mb-2 bg-white/50 dark:bg-black/20 backdrop-blur-xl border border-black/5 dark:border-white/5 rounded-2xl hover:bg-black/5 dark:hover:bg-white/5 transition-colors shadow-sm ${isEditing ? "cursor-grab active:cursor-grabbing pr-24" : ""}`}
+      className={`group relative flex items-center justify-between px-6 py-4 mb-3 glass-liquid rounded-[1.5rem] hover:bg-white/5 dark:hover:bg-white/5 transition-all duration-300 shadow-sm ${isEditing ? "cursor-grab active:cursor-grabbing pr-24" : ""}`}
     >
       <div
         className="flex items-center gap-4 w-[35%] sm:w-[30%] lg:w-[25%] cursor-pointer"
@@ -124,7 +124,7 @@ export const WatchlistRow: React.FC<WatchlistRowProps> = ({
         {isEditing && (
           <GripVertical className="h-5 w-5 text-gray-400 mr-1 cursor-grab active:cursor-grabbing" />
         )}
-        <div className="w-10 h-10 rounded-xl bg-white dark:bg-gray-900/50 flex flex-shrink-0 items-center justify-center text-gray-900 dark:text-gray-100 font-black text-lg border border-gray-200 dark:border-white/10 shadow-sm">
+        <div className="w-10 h-10 rounded-xl glass-liquid-alt flex flex-shrink-0 items-center justify-center text-gray-900 dark:text-gray-100 font-black text-lg border-white/10 shadow-sm">
           {firstLetter}
         </div>
         <div className="overflow-hidden">

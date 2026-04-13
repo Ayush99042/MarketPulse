@@ -16,16 +16,37 @@ import {
   LogOut,
   Settings,
 } from "lucide-react";
-import { Link, useLocation } from "react-router-dom";
-import { motion, AnimatePresence } from "framer-motion";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import {
+  motion,
+  AnimatePresence,
+  useScroll,
+  useTransform,
+} from "framer-motion";
+import { LiquidBackground } from "./LiquidBackground";
 
 export const Layout: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
   const { theme, setTheme } = useTheme();
   const location = useLocation();
+  const navigate = useNavigate();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
+
+  const { scrollY } = useScroll();
+  const headerOpacity = useTransform(scrollY, [0, 50], [0.7, 0.95]);
+  const headerBlur = useTransform(
+    scrollY,
+    [0, 50],
+    ["blur(12px)", "blur(32px)"],
+  );
+  const headerHeight = useTransform(scrollY, [0, 50], ["80px", "64px"]);
+  const headerBorder = useTransform(
+    scrollY,
+    [0, 50],
+    ["rgba(255, 255, 255, 0.05)", "rgba(255, 255, 255, 0.1)"],
+  );
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -48,13 +69,33 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({
     return location.pathname.startsWith(path);
   };
 
+  const handleLogoClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    if (location.pathname === "/") {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    } else {
+      navigate("/");
+    }
+  };
+
   return (
-    <div className="min-h-screen bg-gray-50 text-gray-900 dark:bg-gray-950 dark:text-gray-100 font-sans transition-colors duration-200 selection:bg-blue-500/30">
-      <header className="sticky top-0 z-50 w-full border-b border-black/5 dark:border-white/5 bg-white/70 backdrop-blur-3xl dark:bg-gray-950/70">
-        <div className="container mx-auto flex h-16 lg:h-20 items-center justify-between px-4 lg:px-10">
+    <div className="min-h-screen text-gray-900 dark:text-gray-100 font-sans transition-colors duration-200 selection:bg-blue-500/30">
+      <LiquidBackground />
+      <motion.header
+        style={{
+          backdropFilter: headerBlur,
+          backgroundColor:
+            headerOpacity.get() > 0.8 ? "var(--glass-bg)" : "transparent",
+          height: headerHeight,
+          borderColor: headerBorder,
+        }}
+        className="sticky top-0 z-50 w-full border-b glass-liquid transition-colors"
+      >
+        <div className="container mx-auto flex h-full items-center justify-between px-4 lg:px-10">
           <div className="flex items-center gap-10">
             <Link
               to="/"
+              onClick={handleLogoClick}
               className="flex items-center gap-2 transition-transform active:scale-95 shrink-0"
             >
               <div className="text-xl lg:text-2xl font-black flex items-center">
@@ -86,6 +127,17 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({
 
           <div className="flex items-center gap-6 flex-1 justify-end max-w-2xl">
             <nav className="flex items-center gap-3">
+              <button
+                onClick={() => setTheme(theme === "light" ? "dark" : "light")}
+                className="p-2.5 rounded-2xl text-gray-600 dark:text-gray-400 hover:bg-black/5 dark:hover:bg-white/5 transition-colors group"
+              >
+                {theme === "light" ? (
+                  <Moon className="h-5 w-5" />
+                ) : (
+                  <Sun className="h-5 w-5" />
+                )}
+              </button>
+
               <button className="relative p-2.5 rounded-2xl text-gray-600 dark:text-gray-400 hover:bg-black/5 dark:hover:bg-white/5 transition-colors group">
                 <Bell className="h-5 w-5" />
                 <span className="absolute top-2 right-2 w-2 h-2 bg-blue-500 rounded-full border-2 border-white dark:border-gray-950" />
@@ -109,8 +161,12 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({
                       initial={{ opacity: 0, y: 10, scale: 0.95 }}
                       animate={{ opacity: 1, y: 0, scale: 1 }}
                       exit={{ opacity: 0, y: 10, scale: 0.95 }}
-                      transition={{ duration: 0.2, ease: "easeOut" }}
-                      className="absolute right-0 mt-4 w-80 bg-white dark:bg-gray-900 rounded-[2rem] shadow-2xl shadow-black/20 border border-black/5 dark:border-white/10 overflow-hidden z-[100]"
+                      transition={{
+                        duration: 0.4,
+                        type: "spring",
+                        bounce: 0.4,
+                      }}
+                      className="absolute right-0 mt-4 w-80 bg-white dark:bg-[#0c0c0e] rounded-[2rem] shadow-[0_20px_50px_rgba(0,0,0,0.3)] border border-gray-100 dark:border-white/10 overflow-hidden z-[100]"
                     >
                       <div className="p-6 pb-4">
                         <div className="flex items-start justify-between">
@@ -199,14 +255,14 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({
             </nav>
           </div>
         </div>
-      </header>
+      </motion.header>
 
       <main className="container mx-auto p-4 md:p-8 pb-24 lg:pb-8">
         {children}
       </main>
 
-      <div className="lg:hidden fixed bottom-0 left-0 right-0 z-50 px-4 pb-6 pt-2">
-        <nav className="mx-auto max-w-md flex items-center justify-around p-2 bg-white/80 dark:bg-gray-900/80 backdrop-blur-2xl border border-black/5 dark:border-white/5 rounded-3xl shadow-2xl shadow-black/20">
+      <div className="lg:hidden fixed bottom-6 left-0 right-0 z-50 px-6">
+        <nav className="mx-auto max-w-md flex items-center justify-around p-2 glass-liquid rounded-3xl shadow-2xl shadow-black/20 border-white/10">
           {navItems.map((item) => {
             const active = isActive(item.path);
             const Icon = item.icon;
