@@ -1,34 +1,79 @@
 import { AnimatePresence, motion } from "framer-motion";
-import { Search, X } from "lucide-react";
+import { Search, X, SlidersHorizontal } from "lucide-react";
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useTickers } from "../api/queries";
 import { Button } from "../components/Button";
 import { Card } from "../components/Card";
 import { StockCard } from "../components/StockCard";
+import { FilterDrawer } from "../components/FilterDrawer";
 
 export const Listing: React.FC = () => {
-  const { data, isLoading, isError } = useTickers("XNSE");
+  const [activeExchange, setActiveExchange] = useState("XNSE");
+  const [sortBy, setSortBy] = useState<string>("none");
+  const [sortOrder, setSortOrder] = useState<"asc" | "desc" | "none">("none");
+  const [isFilterOpen, setIsFilterOpen] = useState(false);
+  const { data, isLoading, isError } = useTickers(activeExchange);
   const navigate = useNavigate();
 
   const [searchTerm, setSearchTerm] = useState("");
+  const [debouncedSearchTerm, setDebouncedSearchTerm] = useState("");
   const [displayCount, setDisplayCount] = useState(12);
   const observerTarget = useRef<HTMLDivElement>(null);
 
-  const filteredData = useMemo(() => {
-    if (!data) return [];
-    return data.filter(
-      (ticker) =>
-        ticker.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        ticker.symbol.toLowerCase().includes(searchTerm.toLowerCase()),
-    );
-  }, [data, searchTerm]);
+  const exchanges = [
+    { label: "NSE", value: "XNSE" },
+    { label: "BSE", value: "XBOM" },
+    { label: "NASDAQ", value: "XNAS" },
+    { label: "NYSE", value: "XNYS" },
+    { label: "LSE", value: "XLON" },
+    { label: "HKEX", value: "XHKG" },
+    { label: "PARIS", value: "XPAR" },
+  ];
 
-  const total = filteredData.length;
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setDebouncedSearchTerm(searchTerm);
+      setDisplayCount(12);
+    }, 1500);
+
+    return () => clearTimeout(timer);
+  }, [searchTerm]);
+
+  const processedData = useMemo(() => {
+    if (!data) return [];
+
+    let filtered = data?.filter(
+      (ticker) =>
+        ticker.name
+          ?.toLowerCase()
+          .includes(debouncedSearchTerm.toLowerCase()) ||
+        ticker.symbol
+          ?.toLowerCase()
+          .includes(debouncedSearchTerm.toLowerCase()),
+    );
+
+    if (sortBy !== "none" && sortOrder !== "none") {
+      filtered = [...filtered].sort((a, b) => {
+        const valA = sortBy === "name" ? a.name : a.symbol;
+        const valB = sortBy === "name" ? b.name : b.symbol;
+
+        if (sortOrder === "asc") {
+          return valA.localeCompare(valB);
+        } else {
+          return valB.localeCompare(valA);
+        }
+      });
+    }
+
+    return filtered;
+  }, [data, debouncedSearchTerm, sortBy, sortOrder]);
+
+  const total = processedData.length;
 
   const displayedData = useMemo(() => {
-    return filteredData.slice(0, displayCount);
-  }, [filteredData, displayCount]);
+    return processedData.slice(0, displayCount);
+  }, [processedData, displayCount]);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -46,6 +91,22 @@ export const Listing: React.FC = () => {
 
     return () => observer.disconnect();
   }, [displayCount, total]);
+
+  useEffect(() => {
+    setDisplayCount(12);
+    setSearchTerm("");
+    setDebouncedSearchTerm("");
+  }, [activeExchange]);
+
+  const handleApplyFilters = (filters: {
+    exchange: string;
+    sortBy: string;
+    sortOrder: "asc" | "desc" | "none";
+  }) => {
+    setActiveExchange(filters.exchange);
+    setSortBy(filters.sortBy);
+    setSortOrder(filters.sortOrder);
+  };
 
   if (isError) {
     return (
@@ -70,92 +131,138 @@ export const Listing: React.FC = () => {
   }
 
   return (
-    <motion.div
-      initial={{ opacity: 0, scale: 0.98 }}
-      animate={{ opacity: 1, scale: 1 }}
-      className="flex flex-col space-y-8 animate-in fade-in duration-700 pb-20"
-    >
-      <div className="flex justify-end pb-4">
-        <div className="relative group max-w-sm w-full">
-          <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400 group-focus-within:text-blue-500 transition-colors" />
-          <input
-            type="text"
-            placeholder="Search company or symbol..."
-            value={searchTerm}
-            onChange={(e) => {
-              setSearchTerm(e.target.value);
-              setDisplayCount(12);
-            }}
-            className="w-full pl-12 pr-12 py-3.5 glass-liquid rounded-[1.5rem] shadow-xl outline-none focus:ring-2 focus:ring-blue-500/50 transition-all duration-300 text-sm font-black text-gray-900 dark:text-white placeholder-gray-500/50"
-          />
-          {searchTerm && (
+    <>
+      <FilterDrawer
+        isOpen={isFilterOpen}
+        onClose={() => setIsFilterOpen(false)}
+        activeExchange={activeExchange}
+        sortBy={sortBy}
+        sortOrder={sortOrder}
+        onApply={handleApplyFilters}
+        exchanges={exchanges}
+      />
+
+      <motion.div
+        initial={{ opacity: 0, scale: 0.98 }}
+        animate={{ opacity: 1, scale: 1 }}
+        className="flex flex-col space-y-8 animate-in fade-in duration-700 pb-20"
+      >
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 pb-4">
+          <div className="flex items-center gap-4">
             <button
-              onClick={() => {
-                setSearchTerm("");
-                setDisplayCount(12);
-              }}
-              className="absolute right-4 top-1/2 -translate-y-1/2 p-1 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-full transition-colors"
+              onClick={() => setIsFilterOpen(true)}
+              className="group flex items-center gap-3 px-5 py-3 rounded-[1.2rem] bg-white/50 dark:bg-white/5 border border-gray-100 dark:border-white/5 hover:border-blue-500/50 transition-all duration-300 shadow-xl shadow-black/5 active:scale-95"
             >
-              <X className="h-4 w-4 text-gray-400 hover:text-gray-600 dark:hover:text-gray-200" />
-            </button>
-          )}
-        </div>
-      </div>
-
-      <div className="flex-1">
-        {isLoading && (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-            {[...Array(8)].map((_, i) => (
-              <div
-                key={i}
-                className="h-64 rounded-3xl bg-gray-100 dark:bg-gray-800 animate-pulse"
-              />
-            ))}
-          </div>
-        )}
-
-        {!isLoading && total === 0 && (
-          <div className="flex flex-col items-center justify-center h-80 space-y-4">
-            <div className="text-center">
-              <p className="text-xl font-bold text-gray-900 dark:text-white">
-                No results found
-              </p>
-              <p className="text-gray-500 text-sm mt-1 italic">
-                "{searchTerm}" returned no matches in the NSE directory.
-              </p>
-            </div>
-          </div>
-        )}
-
-        {!isLoading && total > 0 && (
-          <div className="flex flex-col">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-              <AnimatePresence mode="popLayout">
-                {displayedData.map((ticker) => (
-                  <StockCard
-                    key={ticker.symbol}
-                    ticker={ticker}
-                    onClick={() =>
-                      navigate(`/detail/${ticker.symbol}`, {
-                        state: { name: ticker.name },
-                      })
-                    }
-                  />
-                ))}
-              </AnimatePresence>
-            </div>
-
-            {displayCount < total && (
-              <div
-                ref={observerTarget}
-                className="w-full h-20 mt-8 flex items-center justify-center"
-              >
-                <div className="w-8 h-8 rounded-full border-2 border-blue-500 border-t-transparent animate-spin" />
+              <div className="p-1.5 rounded-lg bg-blue-500/10 text-blue-600 dark:text-blue-400 group-hover:bg-blue-600 group-hover:text-white transition-all">
+                <SlidersHorizontal className="w-5 h-5" />
               </div>
+              <span className="text-sm font-black text-gray-700 dark:text-gray-300 group-hover:text-gray-950 dark:group-hover:text-white transition-colors">
+                Filters
+              </span>
+            </button>
+
+            <div className="h-8 w-px bg-gray-200 dark:bg-white/10 hidden md:block" />
+
+            <div className="hidden md:flex items-center gap-2">
+              <span className="text-[10px] font-black uppercase tracking-widest text-gray-400">
+                Market:
+              </span>
+              <span className="px-3 py-1 rounded-full bg-blue-500/10 text-blue-600 dark:text-blue-400 text-[10px] font-black uppercase">
+                {exchanges.find((ex) => ex.value === activeExchange)?.label}
+              </span>
+              {sortBy !== "none" && (
+                <>
+                  <div className="h-4 w-px bg-gray-200 dark:bg-white/10 mx-1" />
+                  <span className="text-[10px] font-black uppercase tracking-widest text-gray-400">
+                    Sort:
+                  </span>
+                  <span className="px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 text-[10px] font-black uppercase">
+                    {sortBy} ({sortOrder})
+                  </span>
+                </>
+              )}
+            </div>
+          </div>
+
+          <div className="relative group max-w-sm w-full">
+            <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400 group-focus-within:text-blue-500 transition-colors" />
+            <input
+              type="text"
+              placeholder={`Search in ${activeExchange}...`}
+              value={searchTerm}
+              onChange={(e) => {
+                setSearchTerm(e.target.value);
+              }}
+              className="w-full pl-12 pr-12 py-3.5 glass-liquid rounded-[1.5rem] shadow-xl outline-none focus:ring-2 focus:ring-blue-500/50 transition-all duration-300 text-sm font-black text-gray-900 dark:text-white placeholder-gray-500/50"
+            />
+            {searchTerm && (
+              <button
+                onClick={() => {
+                  setSearchTerm("");
+                }}
+                className="absolute right-4 top-1/2 -translate-y-1/2 p-1 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-full transition-colors"
+              >
+                <X className="h-4 w-4 text-gray-400 hover:text-gray-600 dark:hover:text-gray-200" />
+              </button>
             )}
           </div>
-        )}
-      </div>
-    </motion.div>
+        </div>
+
+        <div className="flex-1">
+          {(isLoading || searchTerm !== debouncedSearchTerm) && (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+              {[...Array(8)].map((_, i) => (
+                <div
+                  key={i}
+                  className="h-64 rounded-3xl bg-gray-100 dark:bg-gray-800 animate-pulse"
+                />
+              ))}
+            </div>
+          )}
+
+          {!isLoading && searchTerm === debouncedSearchTerm && total === 0 && (
+            <div className="flex flex-col items-center justify-center h-80 space-y-4">
+              <div className="text-center">
+                <p className="text-xl font-bold text-gray-900 dark:text-white">
+                  No results found
+                </p>
+                <p className="text-gray-500 text-sm mt-1 italic">
+                  "{debouncedSearchTerm}" returned no matches in the directory.
+                </p>
+              </div>
+            </div>
+          )}
+
+          {!isLoading && searchTerm === debouncedSearchTerm && total > 0 && (
+            <div className="flex flex-col">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                <AnimatePresence mode="popLayout">
+                  {displayedData.map((ticker) => (
+                    <StockCard
+                      key={ticker.symbol}
+                      ticker={ticker}
+                      onClick={() =>
+                        navigate(`/detail/${ticker.symbol}`, {
+                          state: { name: ticker.name },
+                        })
+                      }
+                    />
+                  ))}
+                </AnimatePresence>
+              </div>
+
+              {displayCount < total && (
+                <div
+                  ref={observerTarget}
+                  className="w-full h-20 mt-8 flex items-center justify-center"
+                >
+                  <div className="w-8 h-8 rounded-full border-2 border-blue-500 border-t-transparent animate-spin" />
+                </div>
+              )}
+            </div>
+          )}
+        </div>
+      </motion.div>
+    </>
   );
 };

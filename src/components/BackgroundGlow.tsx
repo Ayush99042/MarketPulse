@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
+import { useTheme } from "./ThemeProvider";
 
 export const BackgroundGlow = () => {
   const [position, setPosition] = useState({ x: 50, y: 50 });
+  const { theme } = useTheme();
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
@@ -15,17 +17,24 @@ export const BackgroundGlow = () => {
     return () => window.removeEventListener("mousemove", handleMouseMove);
   }, []);
 
+  const isLight = theme === "light";
+
+  const glowColor = isLight
+    ? "rgba(6, 182, 212, 0.15)"
+    : "rgba(99, 102, 241, 0.30)";
+  const baseColor = isLight ? "#f8fafc" : "#020617";
+
   return (
     <div
-      className="fixed inset-0 -z-10"
+      className="fixed inset-0 -z-10 transition-colors duration-500"
       style={{
         background: `
           radial-gradient(
             circle at ${position.x}% ${position.y}%,
-            rgba(99, 102, 241, 0.30),
+            ${glowColor},
             transparent 25%
           ),
-          #020617
+          ${baseColor}
         `,
       }}
     />

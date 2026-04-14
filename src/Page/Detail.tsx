@@ -34,7 +34,8 @@ const RangeBar: React.FC<{
   max: number;
   current: number;
   prefix?: string;
-}> = ({ label, min, max, current, prefix = "₹" }) => {
+  locale?: string;
+}> = ({ label, min, max, current, prefix = "₹", locale = "en-IN" }) => {
   const percentage = Math.min(
     Math.max(((current - min) / (max - min)) * 100, 0),
     100,
@@ -47,7 +48,7 @@ const RangeBar: React.FC<{
         </span>
         <span className="text-base font-black text-gray-900 dark:text-gray-100">
           {prefix}
-          {current.toLocaleString("en-IN")}
+          {current.toLocaleString(locale)}
         </span>
       </div>
       <div className="relative h-2.5 w-full bg-black/5 dark:bg-white/5 rounded-full overflow-hidden">
@@ -59,38 +60,55 @@ const RangeBar: React.FC<{
       <div className="flex justify-between text-xs font-bold text-gray-500/60 dark:text-gray-400/40">
         <span>
           {prefix}
-          {min.toLocaleString("en-IN")}
+          {min.toLocaleString(locale)}
         </span>
         <span>
           {prefix}
-          {max.toLocaleString("en-IN")}
+          {max.toLocaleString(locale)}
         </span>
       </div>
     </div>
   );
 };
 
+const currencyConfig: Record<string, { symbol: string; locale: string }> = {
+  XNSE: { symbol: "₹", locale: "en-IN" },
+  XBOM: { symbol: "₹", locale: "en-IN" },
+  XNAS: { symbol: "$", locale: "en-US" },
+  XNYS: { symbol: "$", locale: "en-US" },
+  XLON: { symbol: "£", locale: "en-GB" },
+  XHKG: { symbol: "HK$", locale: "zh-HK" },
+  XPAR: { symbol: "€", locale: "fr-FR" },
+};
+
 export const Detail: React.FC = () => {
   const { symbol } = useParams<{ symbol: string }>();
   const navigate = useNavigate();
   const location = useLocation();
+
+  const [tickerSymbol, mic] = useMemo(() => {
+    const parts = symbol?.split(".") || [];
+    return [parts[0] || "", parts[1] || "XNSE"];
+  }, [symbol]);
+
   const { data, isLoading, isError } = useStockDetail(symbol || "");
-  const { data: allTickers } = useTickers("XNSE");
+  const { data: allTickers } = useTickers(mic);
   const [duration, setDuration] = useState<Duration>("1D");
   const [perfRange, setPerfRange] = useState<"monthly" | "yearly">("monthly");
+
+  const conf = useMemo(() => currencyConfig[mic] || currencyConfig.XNSE, [mic]);
 
   const fullName = useMemo(() => {
     if (location.state?.name) return location.state.name;
     const found = allTickers?.find((t) => t.symbol === symbol);
-    return found ? found.name : symbol?.split(".")[0];
-  }, [location.state, allTickers, symbol]);
+    return found ? found.name : tickerSymbol;
+  }, [location.state, allTickers, symbol, tickerSymbol]);
 
-  const nseSymbol = symbol?.split(".")[0];
   const {
     price: livePrice,
     direction,
     data: liveData,
-  } = useLivePrice(nseSymbol);
+  } = useLivePrice(tickerSymbol, mic);
 
   const { toggleWatchlist, isWatchlisted } = useWatchlist();
   const bookmarked = isWatchlisted(symbol || "");
@@ -102,6 +120,25 @@ export const Detail: React.FC = () => {
     end.setHours(15, 30, 0, 0);
     return { start: start.getTime(), end: end.getTime() };
   }, []);
+
+  const fallbackStats = useMemo(() => {
+    if (!data || data.length === 0) return null;
+    let min = Infinity;
+    let max = -Infinity;
+    data.forEach((d) => {
+      if (d.low < min) min = d.low;
+      if (d.high > max) max = d.high;
+    });
+    const latestEod = data[0];
+    return {
+      dayHigh: latestEod.high,
+      dayLow: latestEod.low,
+      yearHigh: max,
+      yearLow: min,
+      open: latestEod.open,
+      prevClose: data[1]?.close || latestEod.open,
+    };
+  }, [data]);
 
   const [intradayData, setIntradayData] = useState<any[]>([]);
 
@@ -237,7 +274,11 @@ export const Detail: React.FC = () => {
           <p
             className={`text-xl font-black  ${direction === "up" ? "text-emerald-500" : "text-rose-500"}`}
           >
-            ₹{payload[0].value?.toFixed(2)}
+            {conf.symbol}
+            {payload[0].value?.toLocaleString(conf.locale, {
+              minimumFractionDigits: 2,
+              maximumFractionDigits: 2,
+            })}
           </p>
         </Card>
       );
@@ -349,8 +390,8 @@ export const Detail: React.FC = () => {
                   <div
                     className={`text-3xl lg:text-4xl font-black transition-all duration-300 leading-none ${(liveData ? liveData.priceInfo.pChange >= 0 : direction === "up") ? "text-emerald-500" : "text-rose-500"}`}
                   >
-                    ₹
-                    {livePrice.toLocaleString("en-IN", {
+                    {conf.symbol}
+                    {livePrice.toLocaleString(conf.locale, {
                       minimumFractionDigits: 2,
                       maximumFractionDigits: 2,
                     })}
@@ -363,7 +404,8 @@ export const Detail: React.FC = () => {
                       {Math.abs(liveData.priceInfo.pChange).toFixed(2)}%
                       <span className="ml-2 py-0.5 px-1.5 rounded-lg bg-black/5 dark:bg-white/5 text-xs font-bold opacity-80 text-gray-900 dark:text-white">
                         {liveData.priceInfo.change >= 0 ? "+" : "-"}
-                        {Math.abs(liveData.priceInfo.change).toFixed(2)} ₹
+                        {Math.abs(liveData.priceInfo.change).toFixed(2)}{" "}
+                        {conf.symbol}
                       </span>
                     </div>
                   )}
@@ -371,8 +413,8 @@ export const Detail: React.FC = () => {
               ) : (
                 latest && (
                   <div className="text-6xl font-black text-gray-900 dark:text-white">
-                    ₹
-                    {latest.close.toLocaleString("en-IN", {
+                    {conf.symbol}
+                    {latest.close.toLocaleString(conf.locale, {
                       minimumFractionDigits: 2,
                       maximumFractionDigits: 2,
                     })}
@@ -513,15 +555,35 @@ export const Detail: React.FC = () => {
                 <div className="space-y-12">
                   <RangeBar
                     label="Intraday Volatility"
-                    min={liveData?.priceInfo.intraDayHighLow.min || 0}
-                    max={liveData?.priceInfo.intraDayHighLow.max || 0}
-                    current={livePrice || 0}
+                    min={
+                      liveData
+                        ? liveData.priceInfo.intraDayHighLow.min
+                        : fallbackStats?.dayLow || 0
+                    }
+                    max={
+                      liveData
+                        ? liveData.priceInfo.intraDayHighLow.max
+                        : fallbackStats?.dayHigh || 0
+                    }
+                    current={livePrice || latest?.close || 0}
+                    prefix={conf.symbol}
+                    locale={conf.locale}
                   />
                   <RangeBar
                     label="Cyclical Year Range"
-                    min={liveData?.priceInfo.weekHighLow.min || 0}
-                    max={liveData?.priceInfo.weekHighLow.max || 0}
-                    current={livePrice || 0}
+                    min={
+                      liveData
+                        ? liveData.priceInfo.weekHighLow.min
+                        : fallbackStats?.yearLow || 0
+                    }
+                    max={
+                      liveData
+                        ? liveData.priceInfo.weekHighLow.max
+                        : fallbackStats?.yearHigh || 0
+                    }
+                    current={livePrice || latest?.close || 0}
+                    prefix={conf.symbol}
+                    locale={conf.locale}
                   />
                 </div>
               </Card>
@@ -586,7 +648,9 @@ export const Detail: React.FC = () => {
               {[
                 {
                   label: "Asset Valuation",
-                  value: `${(((liveData?.securityInfo.issuedSize || 0) * (livePrice || 0)) / 10000000).toLocaleString("en-IN", { maximumFractionDigits: 0 })} Cr.`,
+                  value: liveData
+                    ? `${(((liveData?.securityInfo.issuedSize || 0) * (livePrice || 0)) / 10000000).toLocaleString(conf.locale, { maximumFractionDigits: 0 })} Cr.`
+                    : "-",
                 },
                 {
                   label: "P/E Multiplier",
@@ -630,23 +694,29 @@ export const Detail: React.FC = () => {
                 {[
                   {
                     label: "Cap Ceiling (UC)",
-                    value: `₹${liveData?.priceInfo.upperCP || "-"}`,
+                    value: liveData?.priceInfo.upperCP
+                      ? `${conf.symbol}${liveData.priceInfo.upperCP}`
+                      : "-",
                   },
                   {
                     label: "Floor Limit (LC)",
-                    value: `₹${liveData?.priceInfo.lowerCP || "-"}`,
+                    value: liveData?.priceInfo.lowerCP
+                      ? `${conf.symbol}${liveData.priceInfo.lowerCP}`
+                      : "-",
                   },
                   {
                     label: "Nominal Value",
-                    value: `₹${liveData?.securityInfo.faceValue || "-"}`,
+                    value: liveData?.securityInfo.faceValue
+                      ? `${conf.symbol}${liveData.securityInfo.faceValue}`
+                      : "-",
                   },
                   {
                     label: "Historic Close",
-                    value: `₹${liveData?.priceInfo.previousClose.toLocaleString("en-IN")}`,
+                    value: `${conf.symbol}${(liveData?.priceInfo.previousClose || fallbackStats?.prevClose || 0).toLocaleString(conf.locale)}`,
                   },
                   {
                     label: "Session Open",
-                    value: `₹${liveData?.priceInfo.open.toLocaleString("en-IN")}`,
+                    value: `${conf.symbol}${(liveData?.priceInfo.open || fallbackStats?.open || 0).toLocaleString(conf.locale)}`,
                   },
                   {
                     label: "Industrial Index",
@@ -708,16 +778,32 @@ export const Detail: React.FC = () => {
                           })}
                         </Td>
                         <Td className="text-xs font-bold text-right font-mono text-gray-900 dark:text-white">
-                          ₹{record.open.toFixed(1)}
+                          {conf.symbol}
+                          {record.open.toLocaleString(conf.locale, {
+                            minimumFractionDigits: 1,
+                            maximumFractionDigits: 1,
+                          })}
                         </Td>
                         <Td className="text-xs font-bold text-right text-emerald-600 font-mono">
-                          ₹{record.high.toFixed(1)}
+                          {conf.symbol}
+                          {record.high.toLocaleString(conf.locale, {
+                            minimumFractionDigits: 1,
+                            maximumFractionDigits: 1,
+                          })}
                         </Td>
                         <Td className="text-xs font-bold text-right text-rose-500 font-mono">
-                          ₹{record.low.toFixed(1)}
+                          {conf.symbol}
+                          {record.low.toLocaleString(conf.locale, {
+                            minimumFractionDigits: 1,
+                            maximumFractionDigits: 1,
+                          })}
                         </Td>
                         <Td className="text-xs font-black text-right text-blue-600 font-mono underline decoration-blue-500/30 underline-offset-4">
-                          ₹{record.close.toFixed(1)}
+                          {conf.symbol}
+                          {record.close.toLocaleString(conf.locale, {
+                            minimumFractionDigits: 1,
+                            maximumFractionDigits: 1,
+                          })}
                         </Td>
                       </Tr>
                     ))}
@@ -741,12 +827,14 @@ export const Detail: React.FC = () => {
                 <div className="space-y-10 relative z-10">
                   <div className="space-y-5">
                     <h4 className="text-3xl font-black text-gray-900 dark:text-gray-100 leading-tight">
-                      {liveData?.info.companyName}
+                      {liveData?.info.companyName || fullName}
                     </h4>
                     <p className="text-xs text-gray-500/80 leading-relaxed font-bold ">
                       Institutional entity spearheading **
-                      {liveData?.industryInfo.basicIndustry}** operations within
-                      the **{liveData?.industryInfo.sector}** framework.
+                      {liveData?.industryInfo.basicIndustry || "global"}**
+                      operations within the **
+                      {liveData?.industryInfo.sector || "financial"}**
+                      framework.
                     </p>
                   </div>
 
@@ -754,11 +842,11 @@ export const Detail: React.FC = () => {
                     {[
                       {
                         label: "Market Segment",
-                        value: liveData?.industryInfo.macro,
+                        value: liveData?.industryInfo.macro || "Equities",
                       },
                       {
                         label: "Industry Tier",
-                        value: liveData?.industryInfo.sector,
+                        value: liveData?.industryInfo.sector || "Global Market",
                       },
                       {
                         label: "Security Class",

@@ -45,6 +45,16 @@ const Sparkline: React.FC<{ data: number[]; color: string }> = ({
   );
 };
 
+const currencyConfig: Record<string, { symbol: string; locale: string }> = {
+  XNSE: { symbol: "₹", locale: "en-IN" },
+  XBOM: { symbol: "₹", locale: "en-IN" },
+  XNAS: { symbol: "$", locale: "en-US" },
+  XNYS: { symbol: "$", locale: "en-US" },
+  XLON: { symbol: "£", locale: "en-GB" },
+  XHKG: { symbol: "HK$", locale: "zh-HK" },
+  XPAR: { symbol: "€", locale: "fr-FR" },
+};
+
 export const WatchlistRow: React.FC<WatchlistRowProps> = ({
   ticker,
   isEditing,
@@ -58,8 +68,18 @@ export const WatchlistRow: React.FC<WatchlistRowProps> = ({
     if (!isEditing) setShowConfirm(false);
   }, [isEditing]);
 
-  const nseSymbol = ticker.symbol.split(".")[0];
-  const { data: liveData, price: livePrice } = useLivePrice(nseSymbol, 15000);
+  const [tickerSymbol, mic] = useMemo(() => {
+    const parts = ticker.symbol.split(".");
+    return [parts[0], parts[1] || "XNSE"];
+  }, [ticker.symbol]);
+
+  const conf = useMemo(() => currencyConfig[mic] || currencyConfig.XNSE, [mic]);
+
+  const { data: liveData, price: livePrice } = useLivePrice(
+    tickerSymbol,
+    mic,
+    15000,
+  );
 
   const firstLetter = ticker.name.charAt(0).toUpperCase();
 
@@ -151,7 +171,7 @@ export const WatchlistRow: React.FC<WatchlistRowProps> = ({
       >
         <div className="text-[13px] font-black text-gray-900 dark:text-gray-100 font-mono">
           {livePrice
-            ? `₹${livePrice.toLocaleString("en-IN", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`
+            ? `${conf.symbol}${livePrice.toLocaleString(conf.locale, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`
             : "-"}
         </div>
       </div>
@@ -163,7 +183,7 @@ export const WatchlistRow: React.FC<WatchlistRowProps> = ({
         {liveData ? (
           <div className={`text-[12px] font-bold ${textColorClass}`}>
             {isPositive ? "+" : "-"}
-            {Math.abs(change).toLocaleString("en-IN", {
+            {Math.abs(change).toLocaleString(conf.locale, {
               minimumFractionDigits: 2,
             })}{" "}
             ({Math.abs(pChange).toFixed(2)}%)
@@ -178,7 +198,7 @@ export const WatchlistRow: React.FC<WatchlistRowProps> = ({
         onClick={onClick}
       >
         <div className="text-[13px] font-bold text-gray-900 dark:text-white font-mono ">
-          {dummyVol.toLocaleString("en-IN", { maximumFractionDigits: 0 })}
+          {dummyVol.toLocaleString(conf.locale, { maximumFractionDigits: 0 })}
         </div>
       </div>
 

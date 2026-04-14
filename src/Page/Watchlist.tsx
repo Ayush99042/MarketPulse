@@ -57,18 +57,20 @@ export const Watchlist: React.FC = () => {
   }
 
   return (
-    <motion.div 
+    <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.6, type: "spring", bounce: 0.3 }}
-      className="flex flex-col space-y-8 animate-in fade-in duration-700 pb-32"
+      className="flex flex-col animate-in fade-in duration-700"
     >
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6 pb-2">
         <h1 className="text-4xl font-black text-gray-900 dark:text-white flex items-center gap-4 mt-2">
           <div className="p-4 glass-liquid rounded-[1.75rem] text-blue-500 shadow-xl">
             <Bookmark className="h-8 w-8 fill-blue-500" />
           </div>
-          My <span className="bg-gradient-to-r from-blue-600 to-blue-400 bg-clip-text text-transparent italic ml-2">Watchlist</span>
+          My{" "}
+          <span className="bg-gradient-to-r from-blue-600 to-blue-400 bg-clip-text text-transparent italic ml-2">
+            Watchlist
+          </span>
         </h1>
 
         <Button

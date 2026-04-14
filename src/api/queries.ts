@@ -41,14 +41,14 @@ export const useTickers = (exchange: string = "XNSE") => {
     queryKey: ["tickers", exchange],
     queryFn: async () => {
       const { data } = await axios.get<{ data: Ticker[] }>(
-        "/data/tickers.json",
+        `/data/${exchange.toLowerCase()}.json`,
       );
       return data.data;
     },
   });
 };
 
-export const useStockDetail = (symbol: string, limit: number = 1000) => {
+export const useStockDetail = (symbol: string, limit: number = 250) => {
   return useQuery({
     queryKey: ["eod", symbol, limit],
     queryFn: async () => {

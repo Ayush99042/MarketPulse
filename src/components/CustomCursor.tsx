@@ -1,9 +1,11 @@
 import { useEffect, useRef, useState } from "react";
+import { useTheme } from "./ThemeProvider";
 
 export const CustomCursor = () => {
   const cursorRef = useRef<HTMLDivElement | null>(null);
   const glowRef = useRef<HTMLDivElement | null>(null);
   const [hidden, setHidden] = useState(false);
+  const { theme } = useTheme();
 
   useEffect(() => {
     const move = (e: MouseEvent) => {
@@ -45,6 +47,8 @@ export const CustomCursor = () => {
     };
   }, []);
 
+  const isLight = theme === "light";
+
   return (
     <>
       <style>{`body { cursor: none; }`}</style>
@@ -52,7 +56,7 @@ export const CustomCursor = () => {
       <div
         ref={cursorRef}
         className={`fixed top-0 left-0 w-5 h-5 rounded-full pointer-events-none z-50
-                    backdrop-blur-md border border-white/30
+                    backdrop-blur-md border ${isLight ? "border-gray-400/50" : "border-white/30"}
                     ${hidden ? "opacity-0" : "opacity-100"}`}
         style={{ willChange: "transform" }}
       />
@@ -60,7 +64,7 @@ export const CustomCursor = () => {
       <div
         ref={glowRef}
         className={`fixed top-0 left-0 w-20 h-20 rounded-full pointer-events-none z-40
-                    bg-indigo-500/30 blur-2xl
+                    ${isLight ? "bg-indigo-400/15" : "bg-indigo-500/30"} blur-2xl
                     ${hidden ? "opacity-0" : "opacity-100"}`}
         style={{ willChange: "transform" }}
       />

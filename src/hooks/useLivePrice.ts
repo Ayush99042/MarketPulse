@@ -13,6 +13,7 @@ export interface LivePriceResult {
 
 export const useLivePrice = (
   symbol: string | undefined,
+  mic: string | undefined = "XNSE",
   intervalMs: number = 1500,
 ): LivePriceResult => {
   const [data, setData] = useState<NSESockEntry | null>(null);
@@ -25,7 +26,10 @@ export const useLivePrice = (
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    if (!symbol) return;
+    if (!symbol || mic !== "XNSE") {
+      setLoading(false);
+      return;
+    }
 
     let isMounted = true;
     let oldPrice: number | null = null;

@@ -70,9 +70,8 @@ export const Dashboard: React.FC = () => {
 
   return (
     <motion.div
-      initial={{ opacity: 0, scale: 0.98 }}
+      initial={{ opacity: 0, scale: 0.9 }}
       animate={{ opacity: 1, scale: 1 }}
-      transition={{ duration: 0.8, type: "spring", bounce: 0.4 }}
       className="flex flex-col space-y-10 pb-20"
     >
       <div className="flex items-center gap-6 overflow-x-auto pb-6 scrollbar-hide border-b border-white/5 whitespace-nowrap">
@@ -141,7 +140,6 @@ export const Dashboard: React.FC = () => {
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ delay: 0.1 }}
           >
             <h2 className="text-2xl font-black text-gray-900 dark:text-white mb-6 liquid-text-gradient">
               Recently viewed
