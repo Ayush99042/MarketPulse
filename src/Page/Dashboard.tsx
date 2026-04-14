@@ -72,7 +72,7 @@ export const Dashboard: React.FC = () => {
     <motion.div
       initial={{ opacity: 0, scale: 0.9 }}
       animate={{ opacity: 1, scale: 1 }}
-      className="flex flex-col space-y-10 pb-20"
+      className="flex flex-col space-y-10 pb-20 duration-700"
     >
       <div className="flex items-center gap-6 overflow-x-auto pb-6 scrollbar-hide border-b border-white/5 whitespace-nowrap">
         {[
