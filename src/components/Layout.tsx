@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
+
 import { useTheme } from "./ThemeProvider";
 import {
   Moon,
@@ -24,6 +25,7 @@ import {
   useTransform,
 } from "framer-motion";
 import { LiquidBackground } from "./LiquidBackground";
+import { useWalletStore } from "../hooks/walletStore";
 
 export const Layout: React.FC<{ children: React.ReactNode }> = ({
   children,
@@ -33,7 +35,7 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({
   const navigate = useNavigate();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
-
+  const balance = useWalletStore((state) => state.balance);
   const { scrollY } = useScroll();
   const headerOpacity = useTransform(scrollY, [0, 50], [0.7, 0.95]);
   const headerBlur = useTransform(
@@ -200,7 +202,10 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({
                             </div>
                             <div>
                               <div className="text-lg font-black text-gray-900 dark:text-white font-mono">
-                                ₹8,086.96
+                                ₹
+                                {balance.toLocaleString("en-IN", {
+                                  minimumFractionDigits: 2,
+                                })}
                               </div>
                               <div className="text-[10px] font-bold text-gray-500 uppercase tracking-widest">
                                 Stocks, F&O balance

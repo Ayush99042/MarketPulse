@@ -12,32 +12,45 @@ import {
   ShieldCheck,
   RefreshCcw,
   Sparkles,
+  ArrowDownCircle,
+  ArrowUpCircle,
+  Banknote,
 } from "lucide-react";
 import { Card } from "../components/Card";
 import { Button } from "../components/Button";
+import { useWalletStore } from "../hooks/walletStore";
 
-type Step = "ENTER" | "QR" | "SUCCESS";
+type Step = "ENTER" | "QR" | "CONFIRM_WITHDRAW" | "SUCCESS";
+type Mode = "ADD" | "WITHDRAW";
 
 export const AddMoney: React.FC = () => {
   const navigate = useNavigate();
 
   const [step, setStep] = useState<Step>("ENTER");
+  const [mode, setMode] = useState<Mode>("ADD");
   const [amount, setAmount] = useState<number>(0);
-  const [balance, setBalance] = useState<number>(8086.96);
-
+  const balance = useWalletStore((state) => state.balance);
+  const addMoney = useWalletStore((state) => state.addMoney);
+  const withdrawMoney = useWalletStore((state) => state.withdrawMoney);
   const upiLink = `upi://pay?pa=ayushmarakana294@oksbi&pn=Ayush Marakana&am=${amount}&cu=INR`;
 
   const handleContinue = () => {
     if (amount <= 0) return;
-    setStep("QR");
+    if (mode === "WITHDRAW" && amount > balance) return;
+    setStep(mode === "ADD" ? "QR" : "CONFIRM_WITHDRAW");
   };
 
-  const handlePaymentSuccess = () => {
-    setBalance((prev) => prev + amount);
+  const handleSuccess = () => {
+    if (mode === "ADD") {
+      addMoney(amount);
+    } else {
+      withdrawMoney(amount);
+    }
     setStep("SUCCESS");
   };
 
-  const quickAmounts = [1000, 2000, 5000, 10000];
+  const quickAmounts =
+    mode === "ADD" ? [1000, 2000, 5000, 10000] : [500, 1000, 2000, 5000];
 
   return (
     <div className="relative overflow-hidden selection:bg-blue-500/30">
@@ -85,23 +98,65 @@ export const AddMoney: React.FC = () => {
                   className="p-10 border-white/10 overflow-hidden relative group "
                 >
                   <div className="absolute top-0 right-0 p-6 opacity-5 group-hover:opacity-10 transition-opacity">
-                    <IndianRupee size={120} className="text-blue-500" />
+                    {mode === "ADD" ? (
+                      <IndianRupee size={120} className="text-blue-500" />
+                    ) : (
+                      <Banknote size={120} className="text-purple-500" />
+                    )}
                   </div>
 
                   <div className="relative z-10 space-y-8">
+                    {/* Toggle Bar */}
+                    <div className="flex p-1.5 bg-black/20 backdrop-blur-xl rounded-2xl border border-white/5 max-w-sm">
+                      <button
+                        onClick={() => {
+                          setMode("ADD");
+                          setAmount(0);
+                        }}
+                        className={`flex-1 flex items-center justify-center gap-2 py-3 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all ${
+                          mode === "ADD"
+                            ? "bg-blue-600 text-white shadow-lg shadow-blue-500/20"
+                            : "text-gray-500 hover:text-gray-300"
+                        }`}
+                      >
+                        <ArrowDownCircle className="w-3.5 h-3.5" />
+                        Add Money
+                      </button>
+                      <button
+                        onClick={() => {
+                          setMode("WITHDRAW");
+                          setAmount(0);
+                        }}
+                        className={`flex-1 flex items-center justify-center gap-2 py-3 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all ${
+                          mode === "WITHDRAW"
+                            ? "bg-purple-600 text-white shadow-lg shadow-purple-500/20"
+                            : "text-gray-500 hover:text-gray-300"
+                        }`}
+                      >
+                        <ArrowUpCircle className="w-3.5 h-3.5" />
+                        Withdraw
+                      </button>
+                    </div>
+
                     <div className="space-y-2">
                       <h2 className="text-3xl font-black text-gray-900 dark:text-white leading-tight">
-                        Inject Liquidity
+                        {mode === "ADD"
+                          ? "Inject Liquidity"
+                          : "Extract Liquidity"}
                       </h2>
                       <p className="text-[10px] font-bold text-gray-500 uppercase tracking-[0.3em] max-w-xs leading-relaxed">
-                        Instant availability. Safe. Secure.
+                        {mode === "ADD"
+                          ? "Instant availability. Safe. Secure."
+                          : "Settlement in 24h. Institutional Grade."}
                       </p>
                     </div>
 
                     <div className="space-y-4">
                       <div className="relative group/input">
                         <div className="absolute left-5 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within/input:text-blue-500 transition-colors">
-                          <IndianRupee className="w-6 h-6 font-black" />
+                          <IndianRupee
+                            className={`w-6 h-6 font-black ${mode === "WITHDRAW" ? "text-purple-500" : "text-blue-500"}`}
+                          />
                         </div>
                         <input
                           type="number"
@@ -117,21 +172,39 @@ export const AddMoney: React.FC = () => {
                           <button
                             key={amt}
                             onClick={() => setAmount(amt)}
-                            className="py-3 rounded-xl bg-black/5 dark:bg-white/5 border border-white/5 text-[10px] font-black text-gray-500 hover:text-white hover:bg-blue-600 transition-all uppercase tracking-widest shadow-sm"
+                            className={`py-3 rounded-xl bg-black/5 dark:bg-white/5 border border-white/5 text-[10px] font-black text-gray-500 hover:text-white transition-all uppercase tracking-widest shadow-sm ${
+                              mode === "ADD"
+                                ? "hover:bg-blue-600"
+                                : "hover:bg-purple-600"
+                            }`}
                           >
                             +{amt}
                           </button>
                         ))}
                       </div>
+
+                      {mode === "WITHDRAW" && amount > balance && (
+                        <p className="text-[9px] font-black text-red-500 uppercase tracking-widest text-center">
+                          Insufficient Liquidity Available
+                        </p>
+                      )}
                     </div>
 
                     <Button
                       onClick={handleContinue}
-                      disabled={amount <= 0}
-                      className="w-full py-5 text-sm font-black uppercase tracking-[0.4em] rounded-2xl bg-blue-600 hover:bg-blue-500 shadow-2xl shadow-blue-500/20 group overflow-hidden relative"
+                      disabled={
+                        amount <= 0 || (mode === "WITHDRAW" && amount > balance)
+                      }
+                      className={`w-full py-5 text-sm font-black uppercase tracking-[0.4em] rounded-2xl shadow-2xl group overflow-hidden relative ${
+                        mode === "ADD"
+                          ? "bg-blue-600 hover:bg-blue-500 shadow-blue-500/20"
+                          : "bg-purple-600 hover:bg-purple-500 shadow-purple-500/20"
+                      }`}
                     >
-                      <span className="relative z-10 flex items-center justify-center gap-3 leading-none">
-                        Secure Initiation
+                      <span className="relative z-10 flex items-center justify-center gap-3 leading-none text-white">
+                        {mode === "ADD"
+                          ? "Secure Initiation"
+                          : "Request Extraction"}
                         <Send className="w-4 h-4" />
                       </span>
                     </Button>
@@ -145,7 +218,7 @@ export const AddMoney: React.FC = () => {
               </motion.div>
             )}
 
-            {step === "QR" && (
+            {step === "QR" && mode === "ADD" && (
               <motion.div
                 key="qr"
                 initial={{ opacity: 0, y: 20, scale: 0.95 }}
@@ -188,10 +261,72 @@ export const AddMoney: React.FC = () => {
 
                     <div className="grid grid-cols-1 gap-3">
                       <Button
-                        onClick={handlePaymentSuccess}
+                        onClick={handleSuccess}
                         className="w-full py-5 !bg-emerald-400 hover:!bg-emerald-700 text-white rounded-xl font-black uppercase tracking-widest shadow-xl shadow-emerald-500/40"
                       >
                         Verification Complete
+                      </Button>
+                      <button
+                        onClick={() => setStep("ENTER")}
+                        className="flex items-center justify-center gap-2 font-black text-gray-500 hover:text-white transition-colors uppercase tracking-[0.3em]"
+                      >
+                        <RefreshCcw className="w-3 h-3" />
+                        Modify Amount
+                      </button>
+                    </div>
+                  </div>
+                </Card>
+              </motion.div>
+            )}
+
+            {step === "CONFIRM_WITHDRAW" && mode === "WITHDRAW" && (
+              <motion.div
+                key="withdraw_confirm"
+                initial={{ opacity: 0, y: 20, scale: 0.95 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0, y: -20, scale: 0.95 }}
+                className="space-y-4"
+              >
+                <Card
+                  glass={true}
+                  className="p-8 border-white/10 text-center space-y-8 relative overflow-hidden"
+                >
+                  <div className="space-y-1">
+                    <h3 className="text-xl font-black text-gray-900 dark:text-white uppercase tracking-tight">
+                      Extraction Request
+                    </h3>
+                    <p className="text-[9px] font-black text-gray-500 uppercase tracking-[0.4em]">
+                      Settlement Authorization
+                    </p>
+                  </div>
+
+                  <div className="bg-purple-500/5 p-8 rounded-3xl border border-purple-500/10 space-y-4">
+                    <div className="flex items-center justify-between text-lg font-black text-gray-500 uppercase tracking-widest px-2">
+                      <span>Amount</span>
+                      <span className="text-white font-mono">
+                        ₹{amount.toLocaleString("en-IN")}
+                      </span>
+                    </div>
+                    <div className="flex items-center justify-between text-lg font-black text-gray-500 uppercase tracking-widest px-2">
+                      <span>Fee</span>
+                      <span className="text-emerald-500">₹0.00</span>
+                    </div>
+                    <div className="h-px bg-white/5" />
+                    <div className="flex items-center justify-between text-[10px] font-black text-gray-400 uppercase tracking-[0.2em] px-2 pt-2">
+                      <span>Total Extraction</span>
+                      <span className="text-xl text-purple-500 font-mono">
+                        ₹{amount.toLocaleString("en-IN")}
+                      </span>
+                    </div>
+                  </div>
+
+                  <div className="space-y-6">
+                    <div className="grid grid-cols-1 gap-3">
+                      <Button
+                        onClick={handleSuccess}
+                        className="w-full py-5 !bg-purple-600 hover:!bg-purple-700 text-white rounded-2xl font-black uppercase tracking-widest shadow-xl shadow-purple-500/40"
+                      >
+                        Confirm Extraction
                       </Button>
                       <button
                         onClick={() => setStep("ENTER")}
@@ -232,19 +367,26 @@ export const AddMoney: React.FC = () => {
                     <h3 className="text-3xl font-black text-gray-900 dark:text-white">
                       Transmission Confirmed
                     </h3>
-                    <p className="text-xs font-black text-emerald-500 uppercase tracking-[0.4em]">
-                      Successfully Injected ₹{amount.toLocaleString("en-IN")}
+                    <p
+                      className={`text-xs font-black uppercase tracking-[0.4em] ${mode === "ADD" ? "text-emerald-500" : "text-purple-500"}`}
+                    >
+                      Successfully {mode === "ADD" ? "Injected" : "Extracted"} ₹
+                      {amount.toLocaleString("en-IN")}
                     </p>
                   </div>
 
                   <p className="text-[10px] text-gray-500/80 leading-relaxed font-bold max-w-[200px] mx-auto">
                     Institutional records have been updated. Your balance
-                    reflects the new liquidity.
+                    reflects the new liquidity state.
                   </p>
 
                   <Button
                     onClick={() => navigate("/")}
-                    className="w-full py-5 bg-blue-600 hover:bg-blue-500 text-white rounded-xl font-black uppercase tracking-[0.3em] shadow-xl shadow-blue-500/20 group"
+                    className={`w-full py-5 text-white rounded-xl font-black uppercase tracking-[0.3em] shadow-xl group ${
+                      mode === "ADD"
+                        ? "bg-blue-600 hover:bg-blue-500 shadow-blue-500/20"
+                        : "bg-purple-600 hover:bg-purple-500 shadow-purple-500/20"
+                    }`}
                   >
                     <span className="flex items-center justify-center gap-3">
                       Return to Command Center
