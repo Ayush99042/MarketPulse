@@ -55,7 +55,7 @@ export const CustomCursor = () => {
 
       <div
         ref={cursorRef}
-        className={`fixed top-0 left-0 w-5 h-5 rounded-full pointer-events-none z-50
+        className={`fixed top-0 left-0 w-5 h-5 rounded-full pointer-events-none z-[9999]
                     backdrop-blur-md border ${isLight ? "border-gray-400/50" : "border-white/30"}
                     ${hidden ? "opacity-0" : "opacity-100"}`}
         style={{ willChange: "transform" }}
@@ -63,7 +63,7 @@ export const CustomCursor = () => {
 
       <div
         ref={glowRef}
-        className={`fixed top-0 left-0 w-20 h-20 rounded-full pointer-events-none z-40
+        className={`fixed top-0 left-0 w-20 h-20 rounded-full pointer-events-none z-[9998]
                     ${isLight ? "bg-indigo-400/15" : "bg-indigo-500/30"} blur-2xl
                     ${hidden ? "opacity-0" : "opacity-100"}`}
         style={{ willChange: "transform" }}

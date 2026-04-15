@@ -7,6 +7,7 @@ import { Watchlist } from "./Page/Watchlist";
 import { Support } from "./Page/Support";
 import { CustomCursor } from "./components/CustomCursor";
 import { BackgroundGlow } from "./components/BackgroundGlow";
+import { AddMoney } from "./Page/AddMoney";
 function App() {
   return (
     <>
@@ -20,6 +21,7 @@ function App() {
           <Route path="/watchlist" element={<Watchlist />} />
           <Route path="/detail/:symbol" element={<Detail />} />
           <Route path="/support" element={<Support />} />
+          <Route path="/add-money" element={<AddMoney />} />
         </Routes>
       </Layout>
     </>

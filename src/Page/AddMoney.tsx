@@ -1,0 +1,262 @@
+import React, { useState } from "react";
+import { QRCodeCanvas } from "qrcode.react";
+import { useNavigate } from "react-router-dom";
+import { motion, AnimatePresence } from "framer-motion";
+import {
+  ArrowLeft,
+  Wallet,
+  CheckCircle,
+  QrCode,
+  IndianRupee,
+  Send,
+  ShieldCheck,
+  RefreshCcw,
+  Sparkles,
+} from "lucide-react";
+import { Card } from "../components/Card";
+import { Button } from "../components/Button";
+
+type Step = "ENTER" | "QR" | "SUCCESS";
+
+export const AddMoney: React.FC = () => {
+  const navigate = useNavigate();
+
+  const [step, setStep] = useState<Step>("ENTER");
+  const [amount, setAmount] = useState<number>(0);
+  const [balance, setBalance] = useState<number>(8086.96);
+
+  const upiLink = `upi://pay?pa=ayushmarakana294@oksbi&pn=Ayush Marakana&am=${amount}&cu=INR`;
+
+  const handleContinue = () => {
+    if (amount <= 0) return;
+    setStep("QR");
+  };
+
+  const handlePaymentSuccess = () => {
+    setBalance((prev) => prev + amount);
+    setStep("SUCCESS");
+  };
+
+  const quickAmounts = [1000, 2000, 5000, 10000];
+
+  return (
+    <div className="relative overflow-hidden selection:bg-blue-500/30">
+      <div className="relative z-10 container mx-auto px-4 h-full flex flex-col justify-center py-10">
+        <div className="w-full max-w-xl mx-auto space-y-6">
+          <div className="flex items-center justify-between">
+            <motion.button
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              onClick={() => navigate(-1)}
+              className="group flex items-center gap-3 text-gray-400 hover:text-white transition-all bg-white/5 px-4 py-2 rounded-xl border border-white/5 backdrop-blur-md"
+            >
+              <ArrowLeft className="w-5 h-5 group-hover:-translate-x-1 transition-transform" />
+              <span className="text-xs font-black uppercase tracking-[0.2em]">
+                Back
+              </span>
+            </motion.button>
+
+            <motion.div
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              className="flex items-center gap-3 bg-blue-500/10 px-5 py-2.5 rounded-2xl border border-blue-500/20 backdrop-blur-md"
+            >
+              <Wallet className="w-5 h-5 text-blue-500" />
+              <span className="text-lg font-black text-white font-mono leading-none">
+                ₹
+                {balance.toLocaleString("en-IN", {
+                  minimumFractionDigits: 2,
+                })}
+              </span>
+            </motion.div>
+          </div>
+
+          <AnimatePresence mode="wait">
+            {step === "ENTER" && (
+              <motion.div
+                key="enter"
+                initial={{ opacity: 0, y: 30, scale: 0.95 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0, y: -30, scale: 0.95 }}
+                transition={{ type: "spring", bounce: 0.3 }}
+              >
+                <Card
+                  glass={true}
+                  className="p-10 border-white/10 overflow-hidden relative group "
+                >
+                  <div className="absolute top-0 right-0 p-6 opacity-5 group-hover:opacity-10 transition-opacity">
+                    <IndianRupee size={120} className="text-blue-500" />
+                  </div>
+
+                  <div className="relative z-10 space-y-8">
+                    <div className="space-y-2">
+                      <h2 className="text-3xl font-black text-gray-900 dark:text-white leading-tight">
+                        Inject Liquidity
+                      </h2>
+                      <p className="text-[10px] font-bold text-gray-500 uppercase tracking-[0.3em] max-w-xs leading-relaxed">
+                        Instant availability. Safe. Secure.
+                      </p>
+                    </div>
+
+                    <div className="space-y-4">
+                      <div className="relative group/input">
+                        <div className="absolute left-5 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within/input:text-blue-500 transition-colors">
+                          <IndianRupee className="w-6 h-6 font-black" />
+                        </div>
+                        <input
+                          type="number"
+                          placeholder="0"
+                          value={amount || ""}
+                          onChange={(e) => setAmount(Number(e.target.value))}
+                          className="no-spinner w-full pl-14 pr-6 py-5 rounded-2xl bg-black/5 dark:bg-white/5 border border-white/10 text-2xl font-black text-gray-900 dark:text-white outline-none focus:border-blue-500/50 focus:bg-blue-500/[0.02] transition-all font-mono placeholder:text-gray-200 dark:placeholder:text-white/5"
+                        />
+                      </div>
+
+                      <div className="grid grid-cols-4 gap-3">
+                        {quickAmounts.map((amt) => (
+                          <button
+                            key={amt}
+                            onClick={() => setAmount(amt)}
+                            className="py-3 rounded-xl bg-black/5 dark:bg-white/5 border border-white/5 text-[10px] font-black text-gray-500 hover:text-white hover:bg-blue-600 transition-all uppercase tracking-widest shadow-sm"
+                          >
+                            +{amt}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+
+                    <Button
+                      onClick={handleContinue}
+                      disabled={amount <= 0}
+                      className="w-full py-5 text-sm font-black uppercase tracking-[0.4em] rounded-2xl bg-blue-600 hover:bg-blue-500 shadow-2xl shadow-blue-500/20 group overflow-hidden relative"
+                    >
+                      <span className="relative z-10 flex items-center justify-center gap-3 leading-none">
+                        Secure Initiation
+                        <Send className="w-4 h-4" />
+                      </span>
+                    </Button>
+
+                    <div className="flex items-center justify-center gap-2 text-gray-500 text-[9px] font-black uppercase tracking-[0.3em]">
+                      <ShieldCheck className="w-4 h-4 text-emerald-500" />
+                      Institutional Grade SSL Encrypted
+                    </div>
+                  </div>
+                </Card>
+              </motion.div>
+            )}
+
+            {step === "QR" && (
+              <motion.div
+                key="qr"
+                initial={{ opacity: 0, y: 20, scale: 0.95 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0, y: -20, scale: 0.95 }}
+                className="space-y-4"
+              >
+                <Card
+                  glass={true}
+                  className="p-8 border-white/10 text-center space-y-8 relative overflow-hidden"
+                >
+                  <div className="space-y-1">
+                    <h3 className="text-xl font-black text-gray-900 dark:text-white uppercase tracking-tight">
+                      Scan QR Code
+                    </h3>
+                    <p className="text-[9px] font-black text-gray-500 uppercase tracking-[0.4em]">
+                      Universal UPI Gateway
+                    </p>
+                  </div>
+
+                  <div className="relative mx-auto w-fit p-4 bg-white rounded-3xl shadow-2xl ring-1 ring-white/20">
+                    <QRCodeCanvas value={upiLink} size={180} level="H" />
+                    <div className="absolute inset-0 flex items-center justify-center pointer-events-none opacity-5">
+                      <QrCode size={80} className="text-blue-900" />
+                    </div>
+                  </div>
+
+                  <div className="space-y-6">
+                    <div>
+                      <div className="text-[8px] font-black text-gray-500 uppercase tracking-[0.5em] mb-1">
+                        Request Origin
+                      </div>
+                      <div className="text-3xl font-black text-blue-600 dark:text-blue-400 font-mono">
+                        ₹
+                        {amount.toLocaleString("en-IN", {
+                          minimumFractionDigits: 2,
+                        })}
+                      </div>
+                    </div>
+
+                    <div className="grid grid-cols-1 gap-3">
+                      <Button
+                        onClick={handlePaymentSuccess}
+                        className="w-full py-5 !bg-emerald-400 hover:!bg-emerald-700 text-white rounded-xl font-black uppercase tracking-widest shadow-xl shadow-emerald-500/40"
+                      >
+                        Verification Complete
+                      </Button>
+                      <button
+                        onClick={() => setStep("ENTER")}
+                        className="flex items-center justify-center gap-2 font-black text-gray-500 hover:text-white transition-colors uppercase tracking-[0.3em]"
+                      >
+                        <RefreshCcw className="w-3 h-3" />
+                        Modify Amount
+                      </button>
+                    </div>
+                  </div>
+                </Card>
+              </motion.div>
+            )}
+
+            {step === "SUCCESS" && (
+              <motion.div
+                key="success"
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                className="text-center"
+              >
+                <Card
+                  glass={true}
+                  className="p-12 border-white/10 space-y-8 relative overflow-hidden group"
+                >
+                  <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/10 via-transparent to-transparent pointer-events-none" />
+
+                  <motion.div
+                    initial={{ scale: 0, rotate: -45 }}
+                    animate={{ scale: 1, rotate: 0 }}
+                    transition={{ type: "spring", bounce: 0.5, delay: 0.2 }}
+                    className="w-20 h-20 bg-emerald-500 rounded-3xl mx-auto flex items-center justify-center shadow-2xl shadow-emerald-500/40"
+                  >
+                    <CheckCircle size={40} className="text-white" />
+                  </motion.div>
+
+                  <div className="space-y-2 relative z-10">
+                    <h3 className="text-3xl font-black text-gray-900 dark:text-white">
+                      Transmission Confirmed
+                    </h3>
+                    <p className="text-xs font-black text-emerald-500 uppercase tracking-[0.4em]">
+                      Successfully Injected ₹{amount.toLocaleString("en-IN")}
+                    </p>
+                  </div>
+
+                  <p className="text-[10px] text-gray-500/80 leading-relaxed font-bold max-w-[200px] mx-auto">
+                    Institutional records have been updated. Your balance
+                    reflects the new liquidity.
+                  </p>
+
+                  <Button
+                    onClick={() => navigate("/")}
+                    className="w-full py-5 bg-blue-600 hover:bg-blue-500 text-white rounded-xl font-black uppercase tracking-[0.3em] shadow-xl shadow-blue-500/20 group"
+                  >
+                    <span className="flex items-center justify-center gap-3">
+                      Return to Command Center
+                      <Sparkles className="w-3 h-3 group-hover:animate-spin" />
+                    </span>
+                  </Button>
+                </Card>
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </div>
+      </div>
+    </div>
+  );
+};

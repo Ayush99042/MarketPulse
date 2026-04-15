@@ -9,9 +9,16 @@ import { StockCard } from "../components/StockCard";
 import { FilterDrawer } from "../components/FilterDrawer";
 
 export const Listing: React.FC = () => {
-  const [activeExchange, setActiveExchange] = useState("XNSE");
-  const [sortBy, setSortBy] = useState<string>("none");
-  const [sortOrder, setSortOrder] = useState<"asc" | "desc" | "none">("none");
+  const [activeExchange, setActiveExchange] = useState(
+    () => localStorage.getItem("mp_activeExchange") ?? "XNSE",
+  );
+  const [sortBy, setSortBy] = useState<string>(
+    () => localStorage.getItem("mp_sortBy") ?? "none",
+  );
+
+  const [sortOrder, setSortOrder] = useState<"asc" | "desc" | "none">(
+    () => (localStorage.getItem("mp_sortOrder") as any) ?? "none",
+  );
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const { data, isLoading, isError } = useTickers(activeExchange);
   const navigate = useNavigate();
@@ -93,11 +100,15 @@ export const Listing: React.FC = () => {
   }, [displayCount, total]);
 
   useEffect(() => {
+    localStorage.setItem("mp_activeExchange", activeExchange);
     setDisplayCount(12);
     setSearchTerm("");
     setDebouncedSearchTerm("");
   }, [activeExchange]);
-
+  useEffect(() => {
+    localStorage.setItem("mp_sortBy", sortBy);
+    localStorage.setItem("mp_sortOrder", sortOrder);
+  }, [sortBy, sortOrder]);
   const handleApplyFilters = (filters: {
     exchange: string;
     sortBy: string;

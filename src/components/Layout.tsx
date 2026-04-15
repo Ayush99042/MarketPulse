@@ -187,7 +187,13 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({
                       <div className="mx-4 h-px bg-black/5 dark:bg-white/5" />
 
                       <div className="p-4 px-2">
-                        <button className="w-full flex items-center justify-between p-4 rounded-2xl hover:bg-black/5 dark:hover:bg-white/5 transition-all group">
+                        <button
+                          onClick={() => {
+                            navigate("/add-money");
+                            setIsMenuOpen(false);
+                          }}
+                          className="w-full flex items-center justify-between p-4 rounded-2xl hover:bg-black/5 dark:hover:bg-white/5 transition-all group"
+                        >
                           <div className="flex items-center gap-4 text-left">
                             <div className="p-2.5 rounded-xl bg-blue-500/10 text-blue-500">
                               <Wallet className="w-5 h-5" />
