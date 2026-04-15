@@ -240,7 +240,18 @@ export const AddMoney: React.FC = () => {
                   </div>
 
                   <div className="relative mx-auto w-fit p-4 bg-white rounded-3xl shadow-2xl ring-1 ring-white/20">
-                    <QRCodeCanvas value={upiLink} size={180} level="H" />
+                    <QRCodeCanvas
+                      value={upiLink}
+                      size={180}
+                      level="H"
+                      includeMargin={true}
+                      imageSettings={{
+                        src: "/logo.png",
+                        height: 40,
+                        width: 40,
+                        excavate: true,
+                      }}
+                    />
                     <div className="absolute inset-0 flex items-center justify-center pointer-events-none opacity-5">
                       <QrCode size={80} className="text-blue-900" />
                     </div>
