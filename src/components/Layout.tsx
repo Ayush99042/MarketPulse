@@ -220,7 +220,11 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({
 
                       <div className="p-2 flex flex-col gap-1">
                         {[
-                          { icon: ClipboardList, label: "All Orders" },
+                          {
+                            icon: ClipboardList,
+                            label: "All Transactions",
+                            path: "/transactions",
+                          },
                           { icon: Building2, label: "Bank Details" },
                           {
                             icon: Headset,

@@ -11,7 +11,7 @@ export const Card: React.FC<CardProps> = ({
   ...props
 }) => {
   const glassStyles = glass
-    ? "glass-liquid border-white/10 shadow-2xl rounded-[2.5rem]"
+    ? "glass-liquid border-white/10 shadow-2xl rounded-3xl"
     : "bg-white dark:bg-gray-900 border-gray-200 dark:border-gray-800 shadow-sm rounded-xl";
 
   return (
