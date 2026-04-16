@@ -1,4 +1,5 @@
 import { create } from "zustand";
+import { persist } from "zustand/middleware";
 
 export type Transaction = {
   id: string;
@@ -18,64 +19,71 @@ type WalletState = {
   withdrawMoney: (amount: number) => void;
 };
 
-export const useWalletStore = create<WalletState>((set) => ({
-  balance: 20000.00,
-  transactions: [
+export const useWalletStore = create<WalletState>()(
+  persist(
+    (set) => ({
+      balance: 20000.0,
+      transactions: [
+        {
+          id: "m3",
+          type: "ADD",
+          title: "Groww Balance Deposit",
+          description: "UPI/Merchant Settlement",
+          amount: 20000.0,
+          date: new Date(Date.now() - 1000 * 60 * 60 * 24 * 6).toISOString(),
+          category: "FINANCE",
+          balanceAfter: 20000.0,
+        },
+      ],
+
+      addMoney: (amount) =>
+        set((state) => {
+          const newBalance = state.balance + amount;
+          return {
+            balance: newBalance,
+            transactions: [
+              {
+                id: crypto.randomUUID(),
+                type: "ADD",
+                title: "Injected Liquidity",
+                description: "UPI Deposit Successful",
+                amount,
+                date: new Date().toISOString(),
+                category: "FINANCE",
+                balanceAfter: newBalance,
+              },
+              ...state.transactions,
+            ],
+          };
+        }),
+
+      withdrawMoney: (amount) =>
+        set((state) => {
+          if (amount > state.balance) {
+            alert("Insufficient balance");
+            return state;
+          }
+          const newBalance = state.balance - amount;
+          return {
+            balance: newBalance,
+            transactions: [
+              {
+                id: crypto.randomUUID(),
+                type: "WITHDRAW",
+                title: "Extracted Liquidity",
+                description: "Settlement in Progress",
+                amount,
+                date: new Date().toISOString(),
+                category: "SETTLEMENT",
+                balanceAfter: newBalance,
+              },
+              ...state.transactions,
+            ],
+          };
+        }),
+    }),
     {
-      id: "m3",
-      type: "ADD",
-      title: "Groww Balance Deposit",
-      description: "UPI/Merchant Settlement",
-      amount: 20000.0,
-      date: new Date(Date.now() - 1000 * 60 * 60 * 24 * 6).toISOString(),
-      category: "FINANCE",
-      balanceAfter: 20000.00,
-    },
-  ],
-
-  addMoney: (amount) =>
-    set((state) => {
-      const newBalance = state.balance + amount;
-      return {
-        balance: newBalance,
-        transactions: [
-          {
-            id: crypto.randomUUID(),
-            type: "ADD",
-            title: "Injected Liquidity",
-            description: "UPI Deposit Successful",
-            amount,
-            date: new Date().toISOString(),
-            category: "FINANCE",
-            balanceAfter: newBalance,
-          },
-          ...state.transactions,
-        ],
-      };
-    }),
-
-  withdrawMoney: (amount) =>
-    set((state) => {
-      if (amount > state.balance) {
-        alert("Insufficient balance");
-        return state;
-      }
-      const newBalance = state.balance - amount;
-      return {
-        balance: newBalance,
-        transactions: [
-          {
-            id: crypto.randomUUID(),
-            type: "WITHDRAW",
-            title: "Extracted Liquidity",
-            description: "Settlement in Progress",
-            amount,
-            date: new Date().toISOString(),
-            category: "SETTLEMENT",
-            balanceAfter: newBalance,
-          },
-          ...state.transactions,
-        ],
-      };
-    }),
-}));
+      name: "marketpulse-wallet-storage",
+    }
+  )
+);

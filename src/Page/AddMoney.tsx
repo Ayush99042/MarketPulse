@@ -109,7 +109,6 @@ export const AddMoney: React.FC = () => {
                   </div>
 
                   <div className="relative z-10 space-y-8">
-                    {/* Toggle Bar */}
                     <div className="flex p-1.5 bg-gray-100 dark:bg-black/20 backdrop-blur-xl rounded-2xl border border-gray-200 dark:border-white/5 max-w-sm">
                       <button
                         onClick={() => {

@@ -6,14 +6,16 @@ import {
   Wallet,
   ArrowUpRight,
   ArrowDownLeft,
-  Search,
-  Filter,
   ArrowRight,
   TrendingUp,
   TrendingDown,
   Headset,
   Plus,
+  Download,
+  X,
 } from "lucide-react";
+import { AnimatePresence } from "framer-motion";
+import { generateTransactionPDF } from "../utils/pdfGenerator";
 import { Card } from "../components/Card";
 import { useWalletStore } from "../hooks/walletStore";
 import type { Transaction } from "../hooks/walletStore";
@@ -22,6 +24,28 @@ export const Transactions: React.FC = () => {
   const navigate = useNavigate();
   const balance = useWalletStore((state) => state.balance);
   const transactions = useWalletStore((state) => state.transactions);
+
+  const [isModalOpen, setIsModalOpen] = React.useState(false);
+  const [startDate, setStartDate] = React.useState(
+    new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString().split("T")[0],
+  );
+  const [endDate, setEndDate] = React.useState(
+    new Date().toISOString().split("T")[0],
+  );
+
+  const handleDownload = () => {
+    const start = new Date(startDate);
+    start.setHours(0, 0, 0, 0);
+    const end = new Date(endDate);
+    end.setHours(23, 59, 59, 999);
+
+    const filteredTransactions = transactions.filter((tx) => {
+      const txDate = new Date(tx.date);
+      return txDate >= start && txDate <= end;
+    });
+    generateTransactionPDF(filteredTransactions, startDate, endDate, balance);
+    setIsModalOpen(false);
+  };
 
   const formatCurrency = (amount: number) => {
     return amount.toLocaleString("en-IN", {
@@ -170,8 +194,15 @@ export const Transactions: React.FC = () => {
 
       <div className="lg:col-span-8 space-y-8 min-h-screen">
         <div className="space-y-4">
-          <div className="flex items-center pl-2 text-[10px] font-black text-gray-500 uppercase tracking-widest mb-2">
+          <div className="flex items-center justify-between pl-2 text-[10px] font-black text-gray-500 uppercase tracking-widest mb-2">
             <span>Transactions</span>
+            <button
+              onClick={() => setIsModalOpen(true)}
+              className="flex items-center gap-2 text-emerald-500 hover:text-emerald-400 transition-all font-black"
+            >
+              <Download className="w-4 h-4" />
+              <span>Download Statement</span>
+            </button>
           </div>
 
           <div className="space-y-3">
@@ -254,6 +285,76 @@ export const Transactions: React.FC = () => {
           </div>
         </div>
       </div>
+
+      <AnimatePresence>
+        {isModalOpen && (
+          <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setIsModalOpen(false)}
+              className="absolute inset-0 bg-black/60 backdrop-blur-sm"
+            />
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.9, y: 20 }}
+              className="relative w-full max-w-md glass-liquid p-8 rounded-[2.5rem] border-white/10 shadow-2xl space-y-8"
+            >
+              <div className="flex items-center justify-between">
+                <div>
+                  <h2 className="text-2xl font-black text-gray-900 dark:text-white liquid-text-gradient">
+                    Secure Download
+                  </h2>
+                  <p className="text-[10px] font-bold text-gray-500 uppercase tracking-[0.3em]">
+                    Transaction Statement
+                  </p>
+                </div>
+                <button
+                  onClick={() => setIsModalOpen(false)}
+                  className="p-2 hover:bg-white/10 rounded-full transition-colors"
+                >
+                  <X className="w-5 h-5 text-gray-500" />
+                </button>
+              </div>
+
+              <div className="grid grid-cols-1 gap-6">
+                <div className="space-y-2">
+                  <label className="text-[10px] font-black text-gray-500 uppercase tracking-widest ml-1">
+                    Start Date
+                  </label>
+                  <input
+                    type="date"
+                    value={startDate}
+                    onChange={(e) => setStartDate(e.target.value)}
+                    className="w-full bg-black/5 dark:bg-white/5 border border-white/10 rounded-2xl p-4 text-gray-900 dark:text-white font-bold focus:outline-none focus:ring-2 focus:ring-emerald-500/50 transition-all"
+                  />
+                </div>
+                <div className="space-y-2">
+                  <label className="text-[10px] font-black text-gray-500 uppercase tracking-widest ml-1">
+                    End Date
+                  </label>
+                  <input
+                    type="date"
+                    value={endDate}
+                    onChange={(e) => setEndDate(e.target.value)}
+                    className="w-full bg-black/5 dark:bg-white/5 border border-white/10 rounded-2xl p-4 text-gray-900 dark:text-white font-bold focus:outline-none focus:ring-2 focus:ring-emerald-500/50 transition-all"
+                  />
+                </div>
+              </div>
+
+              <button
+                onClick={handleDownload}
+                className="w-full py-5 bg-emerald-500 hover:bg-emerald-600 text-white rounded-2xl font-black text-xs uppercase tracking-[0.2em] transition-all shadow-lg shadow-emerald-500/20 active:scale-95 flex items-center justify-center gap-3"
+              >
+                <Download className="w-5 h-5" />
+                Generate PDF Statement
+              </button>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
     </div>
   );
 };
