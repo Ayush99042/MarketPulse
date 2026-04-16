@@ -33,7 +33,7 @@ export const Transactions: React.FC = () => {
     new Date().toISOString().split("T")[0],
   );
 
-  const handleDownload = () => {
+  const handleDownload = async () => {
     const start = new Date(startDate);
     start.setHours(0, 0, 0, 0);
     const end = new Date(endDate);
@@ -43,7 +43,13 @@ export const Transactions: React.FC = () => {
       const txDate = new Date(tx.date);
       return txDate >= start && txDate <= end;
     });
-    generateTransactionPDF(filteredTransactions, startDate, endDate, balance);
+    await generateTransactionPDF(
+      filteredTransactions,
+      startDate,
+      endDate,
+      balance,
+      "ABCDE4429M",
+    );
     setIsModalOpen(false);
   };
 
@@ -342,6 +348,7 @@ export const Transactions: React.FC = () => {
                     className="w-full bg-black/5 dark:bg-white/5 border border-white/10 rounded-2xl p-4 text-gray-900 dark:text-white font-bold focus:outline-none focus:ring-2 focus:ring-emerald-500/50 transition-all"
                   />
                 </div>
+                <span>* File password is your PAN number</span>
               </div>
 
               <button

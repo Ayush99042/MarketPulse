@@ -2,13 +2,28 @@ import jsPDF from "jspdf";
 import autoTable from "jspdf-autotable";
 import type { Transaction } from "../hooks/walletStore";
 
-export const generateTransactionPDF = (
+export const generateTransactionPDF = async (
   transactions: Transaction[],
   startDate: string,
   endDate: string,
-  currentBalance: number
+  currentBalance: number,
+  password?: string
 ) => {
-  const doc = new jsPDF();
+  const options: any = {
+    orientation: "portrait",
+    unit: "mm",
+    format: "a4",
+  };
+
+  if (password) {
+    options.encryption = {
+      userPassword: password,
+      ownerPassword: "admin_private_key",
+      userPermissions: ["print"],
+    };
+  }
+
+  const doc = new jsPDF(options);
   const pageWidth = doc.internal.pageSize.getWidth();
 
   doc.setFontSize(22);
@@ -63,7 +78,7 @@ export const generateTransactionPDF = (
     },
   });
 
-  const pageCount = doc.internal.pages.length - 1;
+  const pageCount = (doc as any).internal.pages.length - 1;
   doc.setFontSize(8);
   doc.setTextColor(148, 163, 184);
   for (let i = 1; i <= pageCount; i++) {
@@ -76,5 +91,6 @@ export const generateTransactionPDF = (
     );
   }
 
-  doc.save(`MarketPulse_Statement_${startDate}_${endDate}.pdf`);
+  const filename = `MarketPulse_Statement_${startDate}_${endDate}.pdf`;
+  doc.save(filename);
 };
