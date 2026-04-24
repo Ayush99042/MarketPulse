@@ -1,5 +1,6 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
+import { useNotificationStore } from "./notificationStore";
 
 export type Transaction = {
   id: string;
@@ -39,6 +40,14 @@ export const useWalletStore = create<WalletState>()(
       addMoney: (amount) =>
         set((state) => {
           const newBalance = state.balance + amount;
+          const { addNotification } = useNotificationStore.getState();
+          addNotification(
+            "Deposit Successful",
+            `₹${amount.toLocaleString("en-IN", {
+              minimumFractionDigits: 2,
+            })} has been added to your wallet.`,
+            "SUCCESS"
+          );
           return {
             balance: newBalance,
             transactions: [
@@ -59,11 +68,24 @@ export const useWalletStore = create<WalletState>()(
 
       withdrawMoney: (amount) =>
         set((state) => {
+          const { addNotification } = useNotificationStore.getState();
           if (amount > state.balance) {
+            addNotification(
+              "Withdrawal Failed",
+              "Insufficient balance for this withdrawal.",
+              "ERROR"
+            );
             alert("Insufficient balance");
             return state;
           }
           const newBalance = state.balance - amount;
+          addNotification(
+            "Withdrawal Initiated",
+            `₹${amount.toLocaleString("en-IN", {
+              minimumFractionDigits: 2,
+            })} is being processed for settlement.`,
+            "INFO"
+          );
           return {
             balance: newBalance,
             transactions: [

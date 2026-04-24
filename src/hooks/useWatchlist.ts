@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useNotificationStore } from "./notificationStore";
 
 export const useWatchlist = () => {
   const [watchlist, setWatchlist] = useState<string[]>(() => {
@@ -18,10 +19,27 @@ export const useWatchlist = () => {
   }, [watchlist]);
 
   const toggleWatchlist = (symbol: string) => {
+    const isRemoving = watchlist.includes(symbol);
+    const { addNotification } = useNotificationStore.getState();
+
+    if (isRemoving) {
+      addNotification(
+        "Removed from Watchlist",
+        `${symbol} has been removed from your watchlist.`,
+        "INFO"
+      );
+    } else {
+      addNotification(
+        "Added to Watchlist",
+        `${symbol} has been added to your watchlist.`,
+        "SUCCESS"
+      );
+    }
+
     setWatchlist((prev) =>
       prev.includes(symbol)
         ? prev.filter((s) => s !== symbol)
-        : [...prev, symbol],
+        : [...prev, symbol]
     );
   };
 

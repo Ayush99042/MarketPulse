@@ -16,6 +16,12 @@ import {
   FileText,
   LogOut,
   Settings,
+  Check,
+  Trash2,
+  Info,
+  CheckCircle2,
+  AlertCircle,
+  XCircle,
 } from "lucide-react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import {
@@ -26,6 +32,7 @@ import {
 } from "framer-motion";
 import { LiquidBackground } from "./LiquidBackground";
 import { useWalletStore } from "../hooks/walletStore";
+import { useNotificationStore } from "../hooks/notificationStore";
 
 export const Layout: React.FC<{ children: React.ReactNode }> = ({
   children,
@@ -34,8 +41,14 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({
   const location = useLocation();
   const navigate = useNavigate();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isNotificationOpen, setIsNotificationOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
+  const notificationRef = useRef<HTMLDivElement>(null);
   const balance = useWalletStore((state) => state.balance);
+  const { notifications, markAllAsRead, clearAll, markAsRead } =
+    useNotificationStore();
+  const unreadCount = notifications.filter((n) => !n.isRead).length;
+
   const { scrollY } = useScroll();
   const headerOpacity = useTransform(scrollY, [0, 50], [0.7, 0.95]);
   const headerBlur = useTransform(
@@ -54,6 +67,12 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({
     const handleClickOutside = (event: MouseEvent) => {
       if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
         setIsMenuOpen(false);
+      }
+      if (
+        notificationRef.current &&
+        !notificationRef.current.contains(event.target as Node)
+      ) {
+        setIsNotificationOpen(false);
       }
     };
     document.addEventListener("mousedown", handleClickOutside);
@@ -140,10 +159,132 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({
                 )}
               </button>
 
-              <button className="relative p-2.5 rounded-2xl text-gray-600 dark:text-gray-400 hover:bg-black/5 dark:hover:bg-white/5 transition-colors group">
-                <Bell className="h-5 w-5" />
-                <span className="absolute top-2 right-2 w-2 h-2 bg-blue-500 rounded-full border-2 border-white dark:border-gray-950" />
-              </button>
+              <div className="relative" ref={notificationRef}>
+                <button
+                  onClick={() => setIsNotificationOpen(!isNotificationOpen)}
+                  className="relative p-2.5 rounded-2xl text-gray-600 dark:text-gray-400 hover:bg-black/5 dark:hover:bg-white/5 transition-colors group"
+                >
+                  <Bell className="h-5 w-5" />
+                  {unreadCount > 0 && (
+                    <span className="absolute top-2 right-2 w-2 h-2 bg-blue-500 rounded-full border-2 border-white dark:border-gray-950" />
+                  )}
+                </button>
+
+                <AnimatePresence>
+                  {isNotificationOpen && (
+                    <motion.div
+                      initial={{ opacity: 0, y: 10, scale: 0.95 }}
+                      animate={{ opacity: 1, y: 0, scale: 1 }}
+                      exit={{ opacity: 0, y: 10, scale: 0.95 }}
+                      transition={{
+                        duration: 0.4,
+                        type: "spring",
+                        bounce: 0.4,
+                      }}
+                      className="absolute right-0 mt-4 w-80 sm:w-96 bg-white dark:bg-[#0c0c0e] rounded-[2rem] shadow-[0_20px_50px_rgba(0,0,0,0.3)] border border-gray-100 dark:border-white/10 overflow-hidden z-[100]"
+                    >
+                      <div className="p-4 flex items-center justify-between border-b border-gray-100 dark:border-white/10">
+                        <h3 className="font-black text-gray-900 dark:text-white text-lg">
+                          Notifications
+                        </h3>
+                        <div className="flex gap-2">
+                          {unreadCount > 0 && (
+                            <button
+                              onClick={markAllAsRead}
+                              className="p-2 rounded-xl text-blue-600 hover:bg-blue-50 dark:text-blue-400 dark:hover:bg-blue-500/10 transition-colors"
+                              title="Mark all as read"
+                            >
+                              <Check className="w-4 h-4" />
+                            </button>
+                          )}
+                          {notifications.length > 0 && (
+                            <button
+                              onClick={clearAll}
+                              className="p-2 rounded-xl text-red-600 hover:bg-red-50 dark:text-red-400 dark:hover:bg-red-500/10 transition-colors"
+                              title="Clear all"
+                            >
+                              <Trash2 className="w-4 h-4" />
+                            </button>
+                          )}
+                        </div>
+                      </div>
+
+                      <div className="max-h-[400px] overflow-y-auto custom-scrollbar">
+                        {notifications.length === 0 ? (
+                          <div className="p-8 text-center text-gray-500 dark:text-gray-400">
+                            <Bell className="w-8 h-8 mx-auto mb-3 opacity-20" />
+                            <p className="text-sm font-medium">
+                              No notifications yet
+                            </p>
+                          </div>
+                        ) : (
+                          <div className="flex flex-col">
+                            {notifications.map((notif) => (
+                              <button
+                                key={notif.id}
+                                onClick={() => markAsRead(notif.id)}
+                                className={`flex items-start gap-3 p-4 text-left transition-colors hover:bg-gray-50 dark:hover:bg-white/5 border-b border-gray-50 dark:border-white/5 last:border-0 ${
+                                  !notif.isRead
+                                    ? "bg-blue-50/50 dark:bg-blue-500/5"
+                                    : ""
+                                }`}
+                              >
+                                <div
+                                  className={`p-2 rounded-xl shrink-0 ${
+                                    notif.type === "SUCCESS"
+                                      ? "bg-emerald-100 text-emerald-600 dark:bg-emerald-500/10 dark:text-emerald-400"
+                                      : notif.type === "WARNING"
+                                        ? "bg-orange-100 text-orange-600 dark:bg-orange-500/10 dark:text-orange-400"
+                                        : notif.type === "ERROR"
+                                          ? "bg-red-100 text-red-600 dark:bg-red-500/10 dark:text-red-400"
+                                          : "bg-blue-100 text-blue-600 dark:bg-blue-500/10 dark:text-blue-400"
+                                  }`}
+                                >
+                                  {notif.type === "SUCCESS" ? (
+                                    <CheckCircle2 className="w-4 h-4" />
+                                  ) : notif.type === "WARNING" ? (
+                                    <AlertCircle className="w-4 h-4" />
+                                  ) : notif.type === "ERROR" ? (
+                                    <XCircle className="w-4 h-4" />
+                                  ) : (
+                                    <Info className="w-4 h-4" />
+                                  )}
+                                </div>
+                                <div>
+                                  <h4
+                                    className={`text-sm font-bold ${
+                                      !notif.isRead
+                                        ? "text-gray-900 dark:text-white"
+                                        : "text-gray-700 dark:text-gray-300"
+                                    }`}
+                                  >
+                                    {notif.title}
+                                  </h4>
+                                  <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5 line-clamp-2">
+                                    {notif.message}
+                                  </p>
+                                  <span className="text-[10px] text-gray-400 dark:text-gray-500 mt-1 block">
+                                    {new Date(notif.timestamp).toLocaleTimeString(
+                                      [],
+                                      {
+                                        hour: "2-digit",
+                                        minute: "2-digit",
+                                      }
+                                    )}
+                                  </span>
+                                </div>
+                                {!notif.isRead && (
+                                  <div className="w-2 h-2 rounded-full bg-blue-500 shrink-0 mt-2 ml-auto" />
+                                )}
+                              </button>
+                            ))}
+                          </div>
+                        )}
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
 
               <div className="relative" ref={menuRef}>
                 <button
